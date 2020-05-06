@@ -10,5 +10,6 @@
     <p th:text="${product.description}"></p>
     <p th:text="${product.price}"></p>
     <p> <a th:href="@{/products/product/{id}(id=${product.id})}">Redaguoti</a> </p>
+    <p> <a th:href="@{/products/product/{id}/delete(id=${product.id})}">Ištrinti</a> </p>
 </body>
 </html>

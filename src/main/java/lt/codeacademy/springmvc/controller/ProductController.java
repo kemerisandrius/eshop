@@ -51,6 +51,15 @@ public class ProductController {
         return "productform";
     }
 
+    @GetMapping("/product/{id}/delete")
+    public String deleteProduct(@PathVariable Long id, Model model) {
+        products = products.stream()
+                .filter(p -> !p.getId().equals(id))
+                .collect(Collectors.toList());
+        model.addAttribute("products", products);
+        return "productlist";
+    }
+
     @PostMapping("/product")
     public String submitProduct(@ModelAttribute Product product) {
         List<Product> newProducts = products.stream()
