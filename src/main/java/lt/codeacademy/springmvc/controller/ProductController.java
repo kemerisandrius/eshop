@@ -1,11 +1,14 @@
 package lt.codeacademy.springmvc.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -26,6 +29,29 @@ public class ProductController {
                 .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " was not found"));
 
         model.addAttribute("product", product);
+        return "productpage";
+    }
+
+    @GetMapping("/product/{id}")
+    public String updateProduct(@PathVariable Long id, Model model) {
+        Product product = products.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " was not found"));
+
+        model.addAttribute("product", product);
+        return "productform";
+    }
+
+    @GetMapping("/product")
+    public String createProductForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "productform";
+    }
+
+    @PostMapping("/product")
+    public String submitProduct(@ModelAttribute Product product) {
+        products.add(product);
         return "productpage";
     }
 
@@ -54,6 +80,11 @@ public class ProductController {
         product3.setDescription("Labai gerai spaudosi");
         product3.setPrice(100.0);
 
-        return Arrays.asList(product1, product2, product3);
+        List<Product> products = new ArrayList<>();
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
+
+        return products;
     }
 }
