@@ -29,6 +29,12 @@ public class ProductController {
         return "productpage";
     }
 
+    @GetMapping
+    public String getAllProducts(Model model) {
+        model.addAttribute("products", products);
+        return "productlist";
+    }
+
     private List<Product> buildProducts() {
         Product product1 = new Product();
         product1.setId(1L);
