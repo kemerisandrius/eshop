@@ -9,7 +9,7 @@
             <p>Title: <input type="text" th:field="*{title}"/></p>
             <p>Description: <input type="text" th:field="*{description}"/></p>
             <p>Price: <input type="text" th:field="*{price}"/></p>
-            <p> <input type="submit" value="Kurti"/> </p>
+            <p> <input type="submit" th:value="${product.id != null ? 'Redaguoti' : 'Kurti'}"/> </p>
         </form>
     </body>
 </html>

@@ -3,12 +3,14 @@ package lt.codeacademy.springmvc.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -51,7 +53,12 @@ public class ProductController {
 
     @PostMapping("/product")
     public String submitProduct(@ModelAttribute Product product) {
-        products.add(product);
+        List<Product> newProducts = products.stream()
+                .filter(p -> !p.getId().equals(product.getId()))
+                .collect(Collectors.toList());
+        newProducts.add(product);
+        products = newProducts;
+
         return "productpage";
     }
 
