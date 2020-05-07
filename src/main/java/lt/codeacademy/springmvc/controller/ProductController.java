@@ -1,46 +1,32 @@
 package lt.codeacademy.springmvc.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import lt.codeacademy.springmvc.services.ProductsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
 
-    private List<Product> products;
+    private ProductsService productsService;
 
-    public ProductController() {
-        this.products = buildProducts();
+    public ProductController(ProductsService productsService) {
+        this.productsService = productsService;
     }
 
     @GetMapping("/{id}")
     public String getProduct(@PathVariable Long id, Model model) {
-        Product product = products.stream()
-                .filter(p -> p.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " was not found"));
-
+        Product product = productsService.getProduct(id);
         model.addAttribute("product", product);
         return "productpage";
     }
 
     @GetMapping("/product/{id}")
-    public String updateProduct(@PathVariable Long id, Model model) {
-        Product product = products.stream()
-                .filter(p -> p.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " was not found"));
-
+    public String getUpdateProductForm(@PathVariable Long id, Model model) {
+        Product product = productsService.getProduct(id);
         model.addAttribute("product", product);
         return "productform";
     }
@@ -53,54 +39,22 @@ public class ProductController {
 
     @GetMapping("/product/{id}/delete")
     public String deleteProduct(@PathVariable Long id, Model model) {
-        products = products.stream()
-                .filter(p -> !p.getId().equals(id))
-                .collect(Collectors.toList());
+        List<Product> products = productsService.deleteProduct(id);
         model.addAttribute("products", products);
         return "productlist";
     }
 
     @PostMapping("/product")
-    public String submitProduct(@ModelAttribute Product product) {
-        List<Product> newProducts = products.stream()
-                .filter(p -> !p.getId().equals(product.getId()))
-                .collect(Collectors.toList());
-        newProducts.add(product);
-        products = newProducts;
-
+    public String submitProduct(@ModelAttribute Product product, Model model) {
+        Product newProduct = productsService.createOrUpdateProduct(product);
+        model.addAttribute("product", newProduct);
         return "productpage";
     }
 
     @GetMapping
     public String getAllProducts(Model model) {
+        List<Product> products = productsService.getAllProducts();
         model.addAttribute("products", products);
         return "productlist";
-    }
-
-    private List<Product> buildProducts() {
-        Product product1 = new Product();
-        product1.setId(1L);
-        product1.setTitle("Atsuktuvas");
-        product1.setDescription("Puikiai atsuka");
-        product1.setPrice(15.50);
-
-        Product product2 = new Product();
-        product2.setId(2L);
-        product2.setTitle("Obuolys");
-        product2.setDescription("Skanus");
-        product2.setPrice(2.50);
-
-        Product product3 = new Product();
-        product3.setId(3L);
-        product3.setTitle("Klaviatura");
-        product3.setDescription("Labai gerai spaudosi");
-        product3.setPrice(100.0);
-
-        List<Product> products = new ArrayList<>();
-        products.add(product1);
-        products.add(product2);
-        products.add(product3);
-
-        return products;
     }
 }

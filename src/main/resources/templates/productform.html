@@ -5,7 +5,9 @@
     <body>
         <h1>Produkto forma:</h1>
         <form th:action="@{/products/product}" method="post" th:object="${product}">
-            <p>Id: <input type="text" th:field="*{id}"/></p>
+            <input type="hidden" th:field="*{id}"/>
+
+            <p th:if="*{id != null}" th:text="'Id: ' + *{id}">Id:</p>
             <p>Title: <input type="text" th:field="*{title}"/></p>
             <p>Description: <input type="text" th:field="*{description}"/></p>
             <p>Price: <input type="text" th:field="*{price}"/></p>
