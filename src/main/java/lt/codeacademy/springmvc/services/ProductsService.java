@@ -32,4 +32,8 @@ public class ProductsService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
+
+    public List<Product> getProductsByPrice(Double price) {
+        return productRepository.getProductsByPrice(price);
+    }
 }

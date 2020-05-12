@@ -45,6 +45,13 @@ public class ProductController {
         return "productlist";
     }
 
+    @GetMapping("/byPrice")
+    public String getProductsByPrice(@RequestParam Double price, Model model) {
+        List<Product> products = productsService.getProductsByPrice(price);
+        model.addAttribute("products", products);
+        return "productlist";
+    }
+
     @PostMapping("/product")
     public String submitProduct(@ModelAttribute Product product, Model model) {
         Product newProduct = productsService.createOrUpdateProduct(product);
