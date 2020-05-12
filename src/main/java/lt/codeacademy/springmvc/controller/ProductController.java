@@ -46,8 +46,12 @@ public class ProductController {
     }
 
     @GetMapping("/byPrice")
-    public String getProductsByPrice(@RequestParam Double price, Model model) {
-        List<Product> products = productsService.getProductsByPrice(price);
+    public String getProductsByPrice(
+        @RequestParam Double price,
+        @RequestParam int pageNumber,
+        Model model
+    ) {
+        List<Product> products = productsService.getProductsByPrice(price, pageNumber);
         model.addAttribute("products", products);
         return "productlist";
     }
