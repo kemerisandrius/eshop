@@ -39,7 +39,8 @@ public class ProductController {
 
     @GetMapping("/product/{id}/delete")
     public String deleteProduct(@PathVariable Long id, Model model) {
-        List<Product> products = productsService.deleteProduct(id);
+        productsService.deleteProduct(id);
+        List<Product> products = productsService.getAllProducts();
         model.addAttribute("products", products);
         return "productlist";
     }
