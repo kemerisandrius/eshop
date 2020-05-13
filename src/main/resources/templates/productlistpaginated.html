@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Eshop - all products</title>
+</head>
+    <body>
+        <table>
+            <thead>
+            <tr>
+                <td>Pavadinimas ilgas</td>
+                <td>Price</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.title}" />
+                <td th:text="${product.price}" />
+                <td>
+                    <a th:href="@{/products/{id}(id=${product.id})}">
+                        Plačiau
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:if="${pageNumber != 0}" th:href="@{/products/paginated(pageNumber=${pageNumber - 1})}"> < </a>
+        <a th:if="${hasNextPage}" th:href="@{/products/paginated(pageNumber=${pageNumber + 1})}"> > </a>
+
+        <a th:href="@{/products/product}">
+            Kurti nauja
+        </a>
+    </body>
+</html>

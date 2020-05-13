@@ -3,6 +3,7 @@ package lt.codeacademy.springmvc.services;
 import lt.codeacademy.springmvc.controller.Product;
 import lt.codeacademy.springmvc.controller.ProductNotFoundException;
 import lt.codeacademy.springmvc.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,11 @@ public class ProductsService {
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    public Page<Product> getAllProductsPaginated(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber, 5);
+        return productRepository.findAll(pageable);
     }
 
     public List<Product> getProductsByPrice(Double price, int pageNumber) {

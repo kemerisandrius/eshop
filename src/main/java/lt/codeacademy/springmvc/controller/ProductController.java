@@ -1,6 +1,8 @@
 package lt.codeacademy.springmvc.controller;
 
+import java.util.Optional;
 import lt.codeacademy.springmvc.services.ProductsService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +63,15 @@ public class ProductController {
         Product newProduct = productsService.createOrUpdateProduct(product);
         model.addAttribute("product", newProduct);
         return "productpage";
+    }
+
+    @GetMapping("/paginated")
+    public String getProductsByPage(@RequestParam(defaultValue = "0") int pageNumber, Model model) {
+        Page<Product> products = productsService.getAllProductsPaginated(pageNumber);
+        model.addAttribute("products", products.getContent());
+        model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("hasNextPage", products.hasNext());
+        return "productlistpaginated";
     }
 
     @GetMapping
