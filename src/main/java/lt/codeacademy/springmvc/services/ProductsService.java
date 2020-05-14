@@ -3,6 +3,7 @@ package lt.codeacademy.springmvc.services;
 import lt.codeacademy.springmvc.controller.Product;
 import lt.codeacademy.springmvc.controller.ProductNotFoundException;
 import lt.codeacademy.springmvc.repositories.ProductRepository;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

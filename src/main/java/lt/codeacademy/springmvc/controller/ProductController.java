@@ -59,10 +59,10 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public String submitProduct(@ModelAttribute Product product, Model model) {
+    public String submitProduct(Product product, Model model) {
         Product newProduct = productsService.createOrUpdateProduct(product);
         model.addAttribute("product", newProduct);
-        return "productpage";
+        return "redirect:/products/" + newProduct.getId();
     }
 
     @GetMapping("/paginated")
