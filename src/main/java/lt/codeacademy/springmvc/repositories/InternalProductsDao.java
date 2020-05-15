@@ -3,6 +3,7 @@ package lt.codeacademy.springmvc.repositories;
 import lt.codeacademy.springmvc.controller.Product;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,19 +22,19 @@ public class InternalProductsDao implements ProductsDao {
         product1.setId(1L);
         product1.setTitle("Atsuktuvas");
         product1.setDescription("Puikiai atsuka");
-        product1.setPrice(15.50);
+        product1.setPrice(new BigDecimal("15.50"));
 
         Product product2 = new Product();
         product2.setId(2L);
         product2.setTitle("Obuolys");
         product2.setDescription("Skanus");
-        product2.setPrice(2.50);
+        product2.setPrice(new BigDecimal("2.50"));
 
         Product product3 = new Product();
         product3.setId(3L);
         product3.setTitle("Klaviatura");
         product3.setDescription("Labai gerai spaudosi");
-        product3.setPrice(100.0);
+        product3.setPrice(new BigDecimal("100.0"));
 
         List<Product> products = new ArrayList<>();
         products.add(product1);

@@ -5,8 +5,14 @@ import lt.codeacademy.springmvc.services.ProductsService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -59,7 +65,12 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public String submitProduct(Product product, Model model) {
+    public String submitProduct(@Valid Product product, BindingResult errors, Model model) {
+
+        if (errors.hasErrors()) {
+            return "productform";
+        }
+
         Product newProduct = productsService.createOrUpdateProduct(product);
         model.addAttribute("product", newProduct);
         return "redirect:/products/" + newProduct.getId();

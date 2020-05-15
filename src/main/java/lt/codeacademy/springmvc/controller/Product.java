@@ -6,7 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.*;
+
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -19,11 +23,14 @@ public class Product {
     private Long id;
 
     @Column(name = "title")
+    @NotEmpty
     private String title;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "price")
-    private Double price;
+    @DecimalMin("0.01")
+    @NotNull
+    private BigDecimal price;
 }

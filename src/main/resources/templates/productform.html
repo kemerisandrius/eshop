@@ -1,17 +1,31 @@
 <html xmlns:th="https://www.thymeleaf.org">
     <head>
         <title>Eshop - form</title>
+        <style>
+            .error {
+                border-color: red;
+                color: red;
+            }
+        </style>
     </head>
     <body>
         <h1>Produkto forma:</h1>
+
+        <ul th:if="${#fields.hasErrors('${product.*}')}">
+            <li th:each="error : ${#fields.errors('${product.*}')}" th:text="${error}"/>
+        </ul>
+
         <form th:action="@{/products/product}" method="post" th:object="${product}">
             <input type="hidden" th:field="*{id}"/>
 
             <p th:if="*{id != null}" th:text="'Id: ' + *{id}">Id:</p>
-            <p>Title: <input type="text" th:field="*{title}"/></p>
+            <p>Title:
+                <input type="text" th:field="*{title}" th:errorclass="error"/>
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"/>
+            </p>
             <p>Description: <input type="text" th:field="*{description}"/></p>
             <p>Price: <input type="text" th:field="*{price}"/></p>
-            <p> <input type="submit" th:value="${product.id != null ? 'Redaguoti' : 'Kurti'}"/> </p>
+            <p> <input type="submit" th:value="${product.id != null ? #messages.msg('redaguoti') : #messages.msg('kurti')}"/> </p>
         </form>
     </body>
 </html>

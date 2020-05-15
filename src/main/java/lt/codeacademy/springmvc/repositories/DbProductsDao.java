@@ -92,7 +92,7 @@ public class DbProductsDao implements ProductsDao {
         Product product = new Product();
         product.setId(resultSet.getLong("product_id"));
         product.setTitle(resultSet.getString("title"));
-        product.setPrice(resultSet.getDouble("price"));
+        product.setPrice(resultSet.getBigDecimal("price"));
         product.setDescription(resultSet.getString("description"));
 
         return product;
@@ -114,7 +114,7 @@ public class DbProductsDao implements ProductsDao {
                     );
             ps.setString(1, product.getTitle());
             ps.setString(2, product.getDescription());
-            ps.setDouble(3, product.getPrice());
+            ps.setBigDecimal(3, product.getPrice());
 
             return ps;
         }, keyHolder);
