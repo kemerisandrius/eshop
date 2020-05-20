@@ -1,20 +1,23 @@
 package lt.codeacademy.springmvc.controller;
 
-import java.util.Optional;
-import lt.codeacademy.springmvc.services.CustomerService;
-import lt.codeacademy.springmvc.services.ProductsService;
+import java.security.Principal;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.Valid;
-import java.util.List;
+import lt.codeacademy.springmvc.services.CustomerService;
+import lt.codeacademy.springmvc.services.ProductsService;
 
 @Controller
 @RequestMapping("/products")
@@ -91,7 +94,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public String getAllProducts(Model model) {
+    public String getAllProducts(Model model, @AuthenticationPrincipal Principal principal) {
         List<Product> products = productsService.getAllProducts();
         model.addAttribute("products", products);
         return "productlist";

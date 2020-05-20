@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Eshop - product</title>
+</head>
+<body>
+<div th:if="${param.error}">
+    Blogi prisijungimo duomenys.
+</div>
+
+<div th:if="${param.logout}">
+    Jūs sėkmingai atsijungėte.
+</div>
+
+<form th:action="@{/prisijungimas-submit}" method="POST">
+    <p th:text="#{vartotojoVardas}">Username</p>
+    <input type="text" name="user">
+
+    <p th:text="#{slaptazodis}">Password</p>
+    <input type="password" name="pass">
+
+    <button type="submit" th:text="#{pateikti}">Submit</button>
+</form>
+</body>
+</html>
