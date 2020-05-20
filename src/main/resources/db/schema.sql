@@ -8,3 +8,13 @@ CREATE TABLE Products
     last_update TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (product_id)
 );
+
+CREATE TABLE Customers
+(
+    customer_id  INT UNSIGNED   NOT NULL    AUTO_INCREMENT,
+    mobile VARCHAR(255)         NOT NULL,
+    name VARCHAR(255)           NOT NULL,
+    last_name VARCHAR(255)      NOT NULL,
+    address VARCHAR(255)        NOT NULL,
+    PRIMARY KEY (customer_id)
+);

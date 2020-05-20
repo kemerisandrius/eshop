@@ -1,0 +1,13 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Checkout Info</title>
+</head>
+<body>
+    <section th:object="${customer}">
+        <span><h2>Name</h2><p th:text="*{name}"></p></span>
+        <span><h2>Last name</h2><p th:text="*{lastName}"></p></span>
+        <span><h2>Phone Nr</h2><p th:text="*{mobile}"></p></span>
+        <span><h2>Adress</h2><p th:text="*{address}"></p></span>
+    </section>
+</body>
+</html>

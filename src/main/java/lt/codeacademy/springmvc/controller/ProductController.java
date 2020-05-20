@@ -1,6 +1,7 @@
 package lt.codeacademy.springmvc.controller;
 
 import java.util.Optional;
+import lt.codeacademy.springmvc.services.CustomerService;
 import lt.codeacademy.springmvc.services.ProductsService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,13 @@ import java.util.List;
 public class ProductController {
 
     private ProductsService productsService;
+    private CustomerService customerService;
 
-    public ProductController(ProductsService productsService) {
+    public ProductController(
+        ProductsService productsService,
+        CustomerService customerService) {
         this.productsService = productsService;
+        this.customerService = customerService;
     }
 
     @GetMapping("/{id}")
@@ -91,4 +96,19 @@ public class ProductController {
         model.addAttribute("products", products);
         return "productlist";
     }
+    @GetMapping("/checkout/buy")
+    public String buyProduct(Model model) {
+        model.addAttribute("customer", new Customer());
+        return "productcheckout";
+    }
+
+    @PostMapping("/checkout/submit")
+    public String checkoutSubmitProduct(@Valid Customer customer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "productcheckout";
+        }
+        customerService.saveOrUpdateCustomer(customer);
+        return "productcheckoutinfo";
+    }
+
 }
