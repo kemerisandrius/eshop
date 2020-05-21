@@ -1,10 +1,11 @@
 package lt.codeacademy.springmvc.repositories;
 
-import lt.codeacademy.springmvc.controller.Customer;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import lt.codeacademy.springmvc.controller.Customer;
+
 public interface CustomerDao extends JpaRepository<Customer, Long> {
-
+    Optional<Customer> findCustomerByUserName(String userName);
 }

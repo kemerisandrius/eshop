@@ -5,6 +5,10 @@
     <title>Eshop - all products</title>
 </head>
 <body>
+    <div>
+        <a th:href="@{?lang=lt}">LT</a>
+        <a th:href="@{?lang=en}">EN</a>
+    </div>
     <h1 th:text="#{sveikinimas}">Labas!!!</h1>
     <table>
         <thead>
@@ -19,7 +23,7 @@
                 <td th:text="${product.title}" />
                 <td th:text="${product.price}" />
                 <td>
-                    <a th:href="@{/products/{id}(id=${product.id})}">
+                    <a th:href="@{/public/products/{id}(id=${product.id})}">
                         Plačiau
                     </a>
                 </td>
@@ -27,7 +31,7 @@
         </tbody>
     </table>
 
-    <a th:href="@{/products/product}">
+    <a th:href="@{/private/products/product}">
         Kurti nauja
     </a>
 
