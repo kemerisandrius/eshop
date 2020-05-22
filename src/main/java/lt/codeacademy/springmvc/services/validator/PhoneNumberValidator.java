@@ -22,7 +22,6 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, St
     }
 
     private boolean isPartialNumberValid(String value) {
-        //867757127
         if (value.length() != 9) {
             return false;
         }

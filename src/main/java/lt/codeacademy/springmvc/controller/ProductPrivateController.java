@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import lt.codeacademy.springmvc.services.validator.CustomerInfoValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,12 +21,16 @@ import lt.codeacademy.springmvc.services.ProductsService;
 public class ProductPrivateController {
     private ProductsService productsService;
     private CustomerService customerService;
+    private CustomerInfoValidator customerInfoValidator;
 
     public ProductPrivateController(
             ProductsService productsService,
-            CustomerService customerService) {
+            CustomerService customerService,
+            CustomerInfoValidator customerInfoValidator
+    ) {
         this.productsService = productsService;
         this.customerService = customerService;
+        this.customerInfoValidator = customerInfoValidator;
     }
 
     @GetMapping("/product/{id}")
@@ -69,6 +74,7 @@ public class ProductPrivateController {
 
     @PostMapping("/checkout/submit")
     public String checkoutSubmitProduct(@Valid Customer customer, BindingResult bindingResult) {
+        customerInfoValidator.validate(customer, bindingResult);
         if (bindingResult.hasErrors()) {
             return "productcheckout";
         }
