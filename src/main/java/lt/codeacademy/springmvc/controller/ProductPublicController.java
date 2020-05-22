@@ -1,5 +1,6 @@
 package lt.codeacademy.springmvc.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -37,33 +38,18 @@ public class ProductPublicController {
         return "productpage";
     }
 
-    @GetMapping("/byPrice")
-    public String getProductsByPrice(
-        @RequestParam Double price,
-        @RequestParam int pageNumber,
-        Model model
+    @GetMapping
+    public String getProductsByPage(
+        @RequestParam(defaultValue = "0") int pageNumber,
+        @RequestParam(required = false) BigDecimal price,
+        Model model,
+        @AuthenticationPrincipal MyUser user
     ) {
-        List<Product> products = productsService.getProductsByPrice(price, pageNumber);
-        model.addAttribute("products", products);
-        return "productlist";
-    }
-
-    @GetMapping("/paginated")
-    public String getProductsByPage(@RequestParam(defaultValue = "0") int pageNumber, Model model, @AuthenticationPrincipal MyUser user) {
-        Page<Product> products = productsService.getAllProductsPaginated(pageNumber);
+        Page<Product> products = productsService.getAllProductsPaginated(pageNumber, price);
         model.addAttribute("products", products.getContent());
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("hasNextPage", products.hasNext());
         model.addAttribute("user", user);
         return "productlistpaginated";
     }
-
-    @GetMapping
-    public String getAllProducts(Model model, @AuthenticationPrincipal MyUser user) {
-        List<Product> products = productsService.getAllProducts();
-        model.addAttribute("user", user);
-        model.addAttribute("products", products);
-        return "productlist";
-    }
-
 }

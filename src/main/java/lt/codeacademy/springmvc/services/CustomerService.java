@@ -13,13 +13,7 @@ public class CustomerService {
         this.customerDao = customerDao;
     }
 
-
-    public Customer getCustomer(Long id){
-        return customerDao.getOne(id);
-    }
-
     public Customer saveOrUpdateCustomer(Customer customer){
         return customerDao.save(customer);
     }
-
 }

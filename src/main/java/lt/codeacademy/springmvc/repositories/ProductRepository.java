@@ -1,5 +1,6 @@
 package lt.codeacademy.springmvc.repositories;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lt.codeacademy.springmvc.controller.Product;
 import org.springframework.data.domain.Page;
@@ -17,8 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //      @Query(value = "SELECT * FROM Products WHERE price=?1", nativeQuery = true)
 //      List<Product> getProductsByPrice(Double price);
 
-        List<Product> getProductsByPrice(Double price);
-
-        Page<Product> getAllByPrice(Double price, Pageable pageable);
+        Page<Product> getAllByPrice(BigDecimal price, Pageable pageable);
 
 }

@@ -1,5 +1,6 @@
 package lt.codeacademy.springmvc.services;
 
+import java.math.BigDecimal;
 import lt.codeacademy.springmvc.controller.Product;
 import lt.codeacademy.springmvc.controller.ProductNotFoundException;
 import lt.codeacademy.springmvc.repositories.ProductRepository;
@@ -37,13 +38,11 @@ public class ProductsService {
         return productRepository.findAll();
     }
 
-    public Page<Product> getAllProductsPaginated(int pageNumber) {
+    public Page<Product> getAllProductsPaginated(int pageNumber, BigDecimal price) {
         Pageable pageable = PageRequest.of(pageNumber, 5);
+        if (price != null) {
+            return productRepository.getAllByPrice(price, pageable);
+        }
         return productRepository.findAll(pageable);
-    }
-
-    public List<Product> getProductsByPrice(Double price, int pageNumber) {
-        Pageable pageable = PageRequest.of(pageNumber,1);
-        return productRepository.getAllByPrice(price, pageable).getContent();
     }
 }
