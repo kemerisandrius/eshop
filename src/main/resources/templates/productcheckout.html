@@ -3,7 +3,7 @@
     <title>Checkout</title>
 </head>
 <body>
-    <form th:action="@{/products/checkout/submit}" th:object="${customer}" method="post">
+    <form th:action="@{/private/products/checkout/submit}" th:object="${customer}" method="post">
         <span><p>Name</p><input type="text" th:field="*{name}"></span>
         <span><p>Last name</p><input type="text" th:field="*{lastName}"></span>
         <span><p>Phone Nr</p><input type="text" th:field="*{mobile}"></span>

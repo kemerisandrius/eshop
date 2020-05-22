@@ -9,9 +9,9 @@
     <p th:text="${product.id}"></p>
     <p th:text="${product.description}"></p>
     <p th:text="${product.price}"></p>
-    <p> <a th:href="@{/products/product/{id}(id=${product.id})}">Redaguoti</a> </p>
-    <p> <a th:href="@{/products/product/{id}/delete(id=${product.id})}">Ištrinti</a> </p>
-    <p> <a th:href="@{/products/checkout/buy}">Pirkti</a> </p>
+    <p> <a th:href="@{/private/products/product/{id}(id=${product.id})}">Redaguoti</a> </p>
+    <p> <a th:href="@{/private/products/product/{id}/delete(id=${product.id})}">Ištrinti</a> </p>
+    <p> <a th:href="@{/private/products/checkout/buy}">Pirkti</a> </p>
 
 </body>
 </html>
