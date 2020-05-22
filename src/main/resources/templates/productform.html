@@ -7,8 +7,11 @@
                 color: red;
             }
         </style>
+        <style th:replace="fragments/main.html :: menustyle"></style>
     </head>
     <body>
+        <div th:replace="fragments/main.html :: menu"></div>
+
         <h1>Produkto forma:</h1>
 
         <ul th:if="${#fields.hasErrors('${product.*}')}">
@@ -27,5 +30,7 @@
             <p>Price: <input type="text" th:field="*{price}"/></p>
             <p> <input type="submit" th:value="${product.id != null ? #messages.msg('redaguoti') : #messages.msg('kurti')}"/> </p>
         </form>
+        <div th:replace="fragments/main.html :: footer"></div>
+
     </body>
 </html>

@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Eshop - product</title>
+    <style th:replace="fragments/main.html :: menustyle"></style>
 </head>
 <body>
+    <div th:replace="fragments/main.html :: menu"></div>
+
     <h1 th:text="${product.title}"></h1>
     <p th:text="${product.id}"></p>
     <p th:text="${product.description}"></p>
@@ -13,5 +16,6 @@
     <p> <a th:href="@{/private/products/product/{id}/delete(id=${product.id})}">Ištrinti</a> </p>
     <p> <a th:href="@{/private/products/checkout/buy}">Pirkti</a> </p>
 
+    <div th:replace="fragments/main.html :: footer"></div>
 </body>
 </html>

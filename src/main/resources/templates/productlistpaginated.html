@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Eshop - all products</title>
+    <style th:replace="fragments/main.html :: menustyle"></style>
 </head>
     <body>
+        <div th:replace="fragments/main.html :: menu"></div>
         <table>
             <thead>
             <tr>
@@ -27,9 +29,9 @@
         </table>
         <a th:if="${pageNumber != 0}" th:href="@{/products/paginated(pageNumber=${pageNumber - 1})}"> < </a>
         <a th:if="${hasNextPage}" th:href="@{/products/paginated(pageNumber=${pageNumber + 1})}"> > </a>
-
         <a th:href="@{/products/product}">
             Kurti nauja
         </a>
+        <div th:replace="fragments/main.html :: footer"></div>
     </body>
 </html>
