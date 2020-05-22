@@ -10,7 +10,7 @@
         <style th:replace="fragments/main.html :: menustyle"></style>
     </head>
     <body>
-        <div th:replace="fragments/main.html :: menu"></div>
+        <div th:replace="fragments/main.html :: menu(user = ${user})"></div>
 
         <h1>Produkto forma:</h1>
 

@@ -6,7 +6,7 @@
     <style th:replace="fragments/main.html :: menustyle"></style>
 </head>
 <body>
-    <div th:replace="fragments/main.html :: menu"></div>
+    <div th:replace="fragments/main.html :: menu(user = ${user})"></div>
     <h1 th:text="#{sveikinimas}">Labas!!!</h1>
     <table>
         <thead>
@@ -33,6 +33,5 @@
         Kurti nauja
     </a>
     <div th:replace="fragments/main.html :: footer"></div>
-
 </body>
 </html>

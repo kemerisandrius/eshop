@@ -33,14 +33,18 @@
             transform: translateX(-50%);
         }
     </style>
-    <ul th:fragment="menu">
+    <ul th:fragment="menu(user)">
         <li><a th:href="@{/public/products}">Products</a></li>
         <li><a th:href="@{?lang=lt}">LT</a></li>
         <li><a th:href="@{?lang=en}">EN</a></li>
         <li>
-            <form th:action="@{/atsijungimas}" method="post">
-                <button type="submit">Atsijungti</button>
+            <form th:if="${user != null}" th:action="@{/atsijungimas}" method="post">
+                <button type="submit" th:text="Atsijungti"/>
             </form>
+            <a th:if="${user == null}" th:href="@{/prisijungimas}">Prisijungimas</a>
+        </li>
+        <li>
+            <span th:text="${user != null ? 'Sveiki ' + user.username : 'Neprisijunges' }"></span>
         </li>
     </ul>
     <div th:fragment="footer" class="footer">

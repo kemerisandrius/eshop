@@ -30,9 +30,10 @@ public class ProductPublicController {
     }
 
     @GetMapping("/{id}")
-    public String getProduct(@PathVariable Long id, Model model) {
+    public String getProduct(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUser user) {
         Product product = productsService.getProduct(id);
         model.addAttribute("product", product);
+        model.addAttribute("user", user);
         return "productpage";
     }
 
@@ -48,17 +49,19 @@ public class ProductPublicController {
     }
 
     @GetMapping("/paginated")
-    public String getProductsByPage(@RequestParam(defaultValue = "0") int pageNumber, Model model) {
+    public String getProductsByPage(@RequestParam(defaultValue = "0") int pageNumber, Model model, @AuthenticationPrincipal MyUser user) {
         Page<Product> products = productsService.getAllProductsPaginated(pageNumber);
         model.addAttribute("products", products.getContent());
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("hasNextPage", products.hasNext());
+        model.addAttribute("user", user);
         return "productlistpaginated";
     }
 
     @GetMapping
     public String getAllProducts(Model model, @AuthenticationPrincipal MyUser user) {
         List<Product> products = productsService.getAllProducts();
+        model.addAttribute("user", user);
         model.addAttribute("products", products);
         return "productlist";
     }

@@ -4,7 +4,7 @@
     <style th:replace="fragments/main.html :: menustyle"></style>
 </head>
 <body>
-    <div th:replace="fragments/main.html :: menu"></div>
+    <div th:replace="fragments/main.html :: menu(user = ${user})"></div>
     <section th:object="${customer}">
         <span><h2>Name</h2><p th:text="*{name}"></p></span>
         <span><h2>Last name</h2><p th:text="*{lastName}"></p></span>

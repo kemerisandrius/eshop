@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import lt.codeacademy.springmvc.services.MyUser;
 import lt.codeacademy.springmvc.services.validator.CustomerInfoValidator;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,8 +36,9 @@ public class ProductPrivateController {
     }
 
     @GetMapping("/product/{id}")
-    public String getUpdateProductForm(@PathVariable Long id, Model model) {
+    public String getUpdateProductForm(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUser user) {
         Product product = productsService.getProduct(id);
+        model.addAttribute("user", user);
         model.addAttribute("product", product);
         return "productform";
     }
@@ -67,18 +70,20 @@ public class ProductPrivateController {
     }
 
     @GetMapping("/checkout/buy")
-    public String buyProduct(Model model) {
+    public String buyProduct(Model model, @AuthenticationPrincipal MyUser user) {
         model.addAttribute("customer", new Customer());
+        model.addAttribute("user", user);
         return "productcheckout";
     }
 
     @PostMapping("/checkout/submit")
-    public String checkoutSubmitProduct(@Valid Customer customer, BindingResult bindingResult) {
+    public String checkoutSubmitProduct(@Valid Customer customer, BindingResult bindingResult, @AuthenticationPrincipal MyUser user, Model model) {
         customerInfoValidator.validate(customer, bindingResult);
         if (bindingResult.hasErrors()) {
             return "productcheckout";
         }
         customerService.saveOrUpdateCustomer(customer);
+        model.addAttribute("user", user);
         return "productcheckoutinfo";
     }
 }
