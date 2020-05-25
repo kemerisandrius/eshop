@@ -5,21 +5,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import lt.codeacademy.springmvc.repositories.CustomerDao;
+import lt.codeacademy.springmvc.repositories.UserRepository;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class SpringDataUserDetailsService implements UserDetailsService {
 
-    private CustomerDao customerDao;
+    private UserRepository userRepository;
 
-    public MyUserDetailsService(CustomerDao customerDao) {
-        this.customerDao = customerDao;
+    public SpringDataUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return customerDao.findCustomerByUserName(username)
-                .map(MyUser::new)
+        return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("No user found by name: " + username));
     }
 }

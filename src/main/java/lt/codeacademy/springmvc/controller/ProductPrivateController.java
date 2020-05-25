@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import lt.codeacademy.springmvc.services.MyUser;
-import lt.codeacademy.springmvc.services.validator.CustomerInfoValidator;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lt.codeacademy.springmvc.entities.Customer;
+import lt.codeacademy.springmvc.entities.Product;
+import lt.codeacademy.springmvc.entities.User;
 import lt.codeacademy.springmvc.services.CustomerService;
 import lt.codeacademy.springmvc.services.ProductsService;
+import lt.codeacademy.springmvc.services.validator.CustomerInfoValidator;
 
 @Controller
 @RequestMapping("/private/products")
@@ -36,7 +38,7 @@ public class ProductPrivateController {
     }
 
     @GetMapping("/product/{id}")
-    public String getUpdateProductForm(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUser user) {
+    public String getUpdateProductForm(@PathVariable Long id, Model model, @AuthenticationPrincipal User user) {
         Product product = productsService.getProduct(id);
         model.addAttribute("user", user);
         model.addAttribute("product", product);
@@ -70,14 +72,14 @@ public class ProductPrivateController {
     }
 
     @GetMapping("/checkout/buy")
-    public String buyProduct(Model model, @AuthenticationPrincipal MyUser user) {
+    public String buyProduct(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("customer", new Customer());
         model.addAttribute("user", user);
         return "productcheckout";
     }
 
     @PostMapping("/checkout/submit")
-    public String checkoutSubmitProduct(@Valid Customer customer, BindingResult bindingResult, @AuthenticationPrincipal MyUser user, Model model) {
+    public String checkoutSubmitProduct(@Valid Customer customer, BindingResult bindingResult, @AuthenticationPrincipal User user, Model model) {
         customerInfoValidator.validate(customer, bindingResult);
         if (bindingResult.hasErrors()) {
             return "productcheckout";

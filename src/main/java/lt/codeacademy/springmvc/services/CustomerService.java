@@ -1,8 +1,9 @@
 package lt.codeacademy.springmvc.services;
 
-import lt.codeacademy.springmvc.controller.Customer;
-import lt.codeacademy.springmvc.repositories.CustomerDao;
 import org.springframework.stereotype.Service;
+
+import lt.codeacademy.springmvc.entities.Customer;
+import lt.codeacademy.springmvc.repositories.CustomerDao;
 
 @Service
 public class CustomerService {

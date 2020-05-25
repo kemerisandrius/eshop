@@ -1,10 +1,11 @@
 package lt.codeacademy.springmvc.services.validator;
 
-import lt.codeacademy.springmvc.controller.Customer;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import lt.codeacademy.springmvc.entities.Customer;
 
 @Component
 public class CustomerInfoValidator implements Validator {

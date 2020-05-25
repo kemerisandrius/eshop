@@ -1,4 +1,4 @@
-package lt.codeacademy.springmvc.controller;
+package lt.codeacademy.springmvc.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 import lt.codeacademy.springmvc.services.validator.PhoneNumber;
 
@@ -20,12 +19,6 @@ public class Customer {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Long id;
-
-    @Column(name = "user_name", nullable = false, unique = true)
-    private String userName;
-
-    @Column(name = "password", nullable = false)
-    private String password;
 
     @Column(name = "name", nullable = false)
     private String name;

@@ -1,16 +1,16 @@
 package lt.codeacademy.springmvc.services;
 
 import java.math.BigDecimal;
-import lt.codeacademy.springmvc.controller.Product;
-import lt.codeacademy.springmvc.controller.ProductNotFoundException;
-import lt.codeacademy.springmvc.repositories.ProductRepository;
-import org.springframework.context.annotation.Scope;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lt.codeacademy.springmvc.controller.ProductNotFoundException;
+import lt.codeacademy.springmvc.entities.Product;
+import lt.codeacademy.springmvc.repositories.ProductRepository;
 
 @Service
 public class ProductsService {

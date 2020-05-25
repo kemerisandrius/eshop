@@ -3,8 +3,12 @@ INSERT INTO Products(title, description, price) VALUES('Graztas', 'Puikiai grezi
 INSERT INTO Products(title, description, price) VALUES('Plaktukas', 'Puikiai kala', 12.50);
 INSERT INTO Products(title, description, price) VALUES('Vinis', 'Puikiai laiko', 1.50);
 
-INSERT INTO Customers(mobile, user_name, password, name, last_name, address)
-    VALUES('+37061234567', 'vartotojas', '{bcrypt}$2y$12$A7x.2lPxE6YdV8ed6OYbDucRiod32wqMF9JNerE.wq4glQWaIjRnO', 'Be', 'Fantazija', 'Lukiskiu 1 g.');
+INSERT INTO Customers(mobile, name, last_name, address)
+    VALUES('+37061234567', 'Be', 'Fantazija', 'Lukiskiu 1 g.');
 
---INSERT INTO Users(username, password) VALUES('user', '{bcrypt}$2y$12$A7x.2lPxE6YdV8ed6OYbDucRiod32wqMF9JNerE.wq4glQWaIjRnO');
---INSERT INTO Authorities(username, authority) VALUES('user', 'ROLE_USER');
+INSERT INTO Users(user_id, username, password, name, last_name)
+    VALUES(1, 'user', '{bcrypt}$2y$12$A7x.2lPxE6YdV8ed6OYbDucRiod32wqMF9JNerE.wq4glQWaIjRnO', 'Be', 'Fantazija');
+
+INSERT INTO Roles(role_id, role) VALUES(1, 'CUSTOMER');
+
+INSERT INTO Users_Roles(user_id, role_id) VALUES(1, 1);
