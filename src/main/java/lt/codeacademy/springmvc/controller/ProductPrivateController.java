@@ -71,21 +71,16 @@ public class ProductPrivateController {
         return "redirect:/products/" + newProduct.getId();
     }
 
-    @GetMapping("/checkout/buy")
-    public String buyProduct(Model model, @AuthenticationPrincipal User user) {
-        model.addAttribute("customer", new Customer());
-        model.addAttribute("user", user);
-        return "productcheckout";
-    }
+
 
     @PostMapping("/checkout/submit")
     public String checkoutSubmitProduct(@Valid Customer customer, BindingResult bindingResult, @AuthenticationPrincipal User user, Model model) {
         customerInfoValidator.validate(customer, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "productcheckout";
+            return "ordercheckout";
         }
         customerService.saveOrUpdateCustomer(customer);
         model.addAttribute("user", user);
-        return "productcheckoutinfo";
+        return "ordercheckoutinfo";
     }
 }

@@ -14,7 +14,7 @@
     <p th:text="${product.price}"></p>
     <p> <a th:href="@{/private/products/product/{id}(id=${product.id})}">Redaguoti</a> </p>
     <p> <a th:href="@{/private/products/product/{id}/delete(id=${product.id})}">Ištrinti</a> </p>
-    <p> <a th:href="@{/private/products/checkout/buy}">Pirkti</a> </p>
+    <p> <a th:href="@{/private/orders/checkout(productId = ${product.id})}">Pirkti</a> </p>
 
     <div th:replace="fragments/main.html :: footer"></div>
 </body>

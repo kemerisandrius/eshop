@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -32,4 +33,7 @@ public class Customer {
     @Column(name = "mobile", nullable = false)
     @PhoneNumber
     private String mobile;
+
+    @OneToOne(mappedBy = "customer")
+    private Order order;
 }
