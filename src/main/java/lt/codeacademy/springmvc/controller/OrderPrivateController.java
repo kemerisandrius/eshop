@@ -4,12 +4,16 @@ import lt.codeacademy.springmvc.entities.DeliveryInfo;
 import lt.codeacademy.springmvc.entities.Order;
 import lt.codeacademy.springmvc.entities.Product;
 import lt.codeacademy.springmvc.entities.User;
+import lt.codeacademy.springmvc.repositories.UserRepository;
 import lt.codeacademy.springmvc.services.OrderService;
 import lt.codeacademy.springmvc.services.ProductsService;
+import lt.codeacademy.springmvc.services.SpringDataUserDetailsService;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,13 +24,16 @@ public class OrderPrivateController {
 
     private OrderService orderService;
     private ProductsService productsService;
+    private SpringDataUserDetailsService userService;
 
     public OrderPrivateController(
         OrderService orderService,
-        ProductsService productsService
+        ProductsService productsService,
+        SpringDataUserDetailsService userService
     ) {
         this.orderService = orderService;
         this.productsService = productsService;
+        this.userService = userService;
     }
 
     @PostMapping("/checkout/buy")
@@ -43,6 +50,9 @@ public class OrderPrivateController {
         order.setProduct(product);
         orderService.saveOrder(order);
 
+        user.addDeliveryInfo(deliveryInfo);
+        userService.saveOrUpdateUser(user);
+
         model.addAttribute("deliveryInfo", deliveryInfo);
         model.addAttribute("user", user);
         return "ordercheckoutinfo";
@@ -58,6 +68,18 @@ public class OrderPrivateController {
         model.addAttribute("productId", productId);
         model.addAttribute("user", user);
         return "ordercheckout";
+    }
+
+    @GetMapping
+    public String showOrderList(
+        @RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
+        @AuthenticationPrincipal User user,
+        Model model
+    ) {
+        Page<Order> userOrders = orderService.getUserOrders(user, pageNumber);
+        model.addAttribute("userOrders", userOrders.getContent());
+        model.addAttribute("user", user);
+        return "orderhistory";
     }
 
 

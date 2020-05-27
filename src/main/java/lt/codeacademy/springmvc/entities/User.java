@@ -1,6 +1,8 @@
 package lt.codeacademy.springmvc.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -51,6 +55,10 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "delivery_info_id")
+    private List<DeliveryInfo> deliveryInfoList = new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
@@ -76,5 +84,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void addDeliveryInfo(DeliveryInfo deliveryInfo) {
+        this.deliveryInfoList.add(deliveryInfo);
     }
 }

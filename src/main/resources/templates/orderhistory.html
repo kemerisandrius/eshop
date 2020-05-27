@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Eshop - all products</title>
+    <style th:replace="fragments/main.html :: menustyle"></style>
+</head>
+<body>
+<div th:replace="fragments/main.html :: menu(user = ${user})"></div>
+<table>
+    <thead>
+    <tr>
+        <td>Adresas</td>
+        <td>Vardas</td>
+        <td>Pavarde</td>
+        <td>Produkto pavadinimas</td>
+        <td>Kaina</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${userOrders}">
+        <td th:text="${order.getDeliveryInfo().getAddress()}" />
+        <td th:text="${order.getDeliveryInfo().getName()}" />
+        <td th:text="${order.getDeliveryInfo().getLastName()}" />
+        <td th:text="${order.getProduct().getTitle()}" />
+        <td th:text="${order.getProduct().getPrice()}" />
+    </tr>
+    </tbody>
+</table>
+<div th:replace="fragments/main.html :: footer"></div>
+</body>
+</html>
