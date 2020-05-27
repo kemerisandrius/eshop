@@ -37,6 +37,7 @@
         <li><a th:href="@{/public/products}">Products</a></li>
         <li><a th:href="@{?lang=lt}">LT</a></li>
         <li><a th:href="@{?lang=en}">EN</a></li>
+        <li><a th:href="@{/private/orders}">Orders</a></li>
         <li>
             <form th:if="${user != null}" th:action="@{/atsijungimas}" method="post">
                 <button type="submit" th:text="Atsijungti"/>
