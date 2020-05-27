@@ -5,13 +5,13 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import lt.codeacademy.springmvc.entities.Customer;
+import lt.codeacademy.springmvc.entities.DeliveryInfo;
 
 @Component
 public class CustomerInfoValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
-        return Customer.class.isAssignableFrom(clazz);
+        return DeliveryInfo.class.isAssignableFrom(clazz);
     }
 
     @Override

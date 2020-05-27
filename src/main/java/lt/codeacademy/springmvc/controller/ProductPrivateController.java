@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lt.codeacademy.springmvc.entities.Customer;
+import lt.codeacademy.springmvc.entities.DeliveryInfo;
 import lt.codeacademy.springmvc.entities.Product;
 import lt.codeacademy.springmvc.entities.User;
 import lt.codeacademy.springmvc.services.CustomerService;
@@ -74,12 +74,12 @@ public class ProductPrivateController {
 
 
     @PostMapping("/checkout/submit")
-    public String checkoutSubmitProduct(@Valid Customer customer, BindingResult bindingResult, @AuthenticationPrincipal User user, Model model) {
-        customerInfoValidator.validate(customer, bindingResult);
+    public String checkoutSubmitProduct(@Valid DeliveryInfo deliveryInfo, BindingResult bindingResult, @AuthenticationPrincipal User user, Model model) {
+        customerInfoValidator.validate(deliveryInfo, bindingResult);
         if (bindingResult.hasErrors()) {
             return "ordercheckout";
         }
-        customerService.saveOrUpdateCustomer(customer);
+        customerService.saveOrUpdateCustomer(deliveryInfo);
         model.addAttribute("user", user);
         return "ordercheckoutinfo";
     }

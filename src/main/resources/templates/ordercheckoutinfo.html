@@ -5,7 +5,7 @@
 </head>
 <body>
     <div th:replace="fragments/main.html :: menu(user = ${user})"></div>
-    <section th:object="${customer}">
+    <section th:object="${deliveryInfo}">
         <span><h2>Name</h2><p th:text="*{name}"></p></span>
         <span><h2>Last name</h2><p th:text="*{lastName}"></p></span>
         <span><h2>Phone Nr</h2><p th:text="*{mobile}"></p></span>

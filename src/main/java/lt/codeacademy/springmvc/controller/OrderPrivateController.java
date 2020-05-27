@@ -1,6 +1,6 @@
 package lt.codeacademy.springmvc.controller;
 
-import lt.codeacademy.springmvc.entities.Customer;
+import lt.codeacademy.springmvc.entities.DeliveryInfo;
 import lt.codeacademy.springmvc.entities.Order;
 import lt.codeacademy.springmvc.entities.Product;
 import lt.codeacademy.springmvc.entities.User;
@@ -32,18 +32,18 @@ public class OrderPrivateController {
     @PostMapping("/checkout/buy")
     public String checkout(
         @RequestParam("productId") Long productId,
-        Customer customer,
+        DeliveryInfo deliveryInfo,
         Model model,
         @AuthenticationPrincipal User user
     ) {
         Product product = productsService.getProduct(productId);
-        
+
         Order order = new Order();
-        order.setCustomer(customer);
+        order.setDeliveryInfo(deliveryInfo);
         order.setProduct(product);
         orderService.saveOrder(order);
 
-        model.addAttribute("customer", customer);
+        model.addAttribute("deliveryInfo", deliveryInfo);
         model.addAttribute("user", user);
         return "ordercheckoutinfo";
     }
@@ -54,7 +54,7 @@ public class OrderPrivateController {
         Model model,
         @AuthenticationPrincipal User user
     ) {
-        model.addAttribute("customer", new Customer());
+        model.addAttribute("deliveryInfo", new DeliveryInfo());
         model.addAttribute("productId", productId);
         model.addAttribute("user", user);
         return "ordercheckout";

@@ -13,8 +13,8 @@ import lt.codeacademy.springmvc.services.validator.PhoneNumber;
 
 @Data
 @Entity
-@Table(name = "Customers")
-public class Customer {
+@Table(name = "Delivery_info")
+public class DeliveryInfo {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -34,6 +34,6 @@ public class Customer {
     @PhoneNumber
     private String mobile;
 
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "deliveryInfo")
     private Order order;
 }

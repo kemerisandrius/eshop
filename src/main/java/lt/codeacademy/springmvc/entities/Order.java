@@ -19,7 +19,7 @@ public class Order {
     private Long id;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    private Customer customer;
+    private DeliveryInfo deliveryInfo;
 
     @OneToOne(cascade = {CascadeType.ALL})
     private Product product;
