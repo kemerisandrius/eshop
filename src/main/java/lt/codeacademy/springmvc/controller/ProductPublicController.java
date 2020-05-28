@@ -35,7 +35,7 @@ public class ProductPublicController {
         Product product = productsService.getProduct(id);
         model.addAttribute("product", product);
         model.addAttribute("user", user);
-        return "productpage";
+        return "product";
     }
 
     @GetMapping
@@ -50,6 +50,6 @@ public class ProductPublicController {
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("hasNextPage", products.hasNext());
         model.addAttribute("user", user);
-        return "productlistpaginated";
+        return "products";
     }
 }

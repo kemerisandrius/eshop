@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Eshop - all products</title>
@@ -29,7 +31,8 @@
         </table>
         <a th:if="${pageNumber != 0}" th:href="@{/products/paginated(pageNumber=${pageNumber - 1})}"> < </a>
         <a th:if="${hasNextPage}" th:href="@{/products/paginated(pageNumber=${pageNumber + 1})}"> > </a>
-        <a th:href="@{/products/product}">
+        <a th:href="@{/private/products/product}"
+           sec:authorize="hasRole('ADMIN')">
             Kurti nauja
         </a>
         <div th:replace="fragments/main.html :: footer"></div>

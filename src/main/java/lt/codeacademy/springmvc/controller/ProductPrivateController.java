@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ public class ProductPrivateController {
     }
 
     @GetMapping("/product/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String getUpdateProductForm(@PathVariable Long id, Model model, @AuthenticationPrincipal User user) {
         Product product = productsService.getProduct(id);
         model.addAttribute("user", user);
@@ -46,20 +48,23 @@ public class ProductPrivateController {
     }
 
     @GetMapping("/product")
+    @PreAuthorize("hasRole('ADMIN')")
     public String createProductForm(Model model) {
         model.addAttribute("product", new Product());
         return "productform";
     }
 
     @GetMapping("/product/{id}/delete")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteProduct(@PathVariable Long id, Model model) {
         productsService.deleteProduct(id);
         List<Product> products = productsService.getAllProducts();
         model.addAttribute("products", products);
-        return "productlist";
+        return "products";
     }
 
     @PostMapping("/product")
+    @PreAuthorize("hasRole('ADMIN')")
     public String submitProduct(@Valid Product product, BindingResult errors, Model model) {
 
         if (errors.hasErrors()) {
@@ -68,7 +73,7 @@ public class ProductPrivateController {
 
         Product newProduct = productsService.createOrUpdateProduct(product);
         model.addAttribute("product", newProduct);
-        return "redirect:/products/" + newProduct.getId();
+        return "redirect:/public/products/" + newProduct.getId();
     }
 
 

@@ -18,7 +18,7 @@
             <li th:each="error : ${#fields.errors('${product.*}')}" th:text="${error}"/>
         </ul>
 
-        <form th:action="@{/products/product}" method="post" th:object="${product}">
+        <form th:action="@{/private/products/product}" method="post" th:object="${product}">
             <input type="hidden" th:field="*{id}"/>
 
             <p th:if="*{id != null}" th:text="'Id: ' + *{id}">Id:</p>

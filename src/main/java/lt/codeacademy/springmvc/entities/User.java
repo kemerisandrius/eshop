@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -62,7 +61,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole()))
                 .collect(Collectors.toSet());
     }
 
@@ -88,5 +87,9 @@ public class User implements UserDetails {
 
     public void addDeliveryInfo(DeliveryInfo deliveryInfo) {
         this.deliveryInfoList.add(deliveryInfo);
+    }
+
+    public String getFullName() {
+        return name + " " + lastName;
     }
 }

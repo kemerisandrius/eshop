@@ -1,4 +1,6 @@
-<html xmlns:th="https://www.thymeleaf.org">
+<html
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <style th:fragment="menustyle">
         * {
             margin: 0;
@@ -14,7 +16,10 @@
         li {
             float: left;
         }
-        li a{
+        li.authenticationBlock {
+            float: right;
+        }
+        li a, li span {
             display: block;
             color: white;
             text-align: center;
@@ -33,19 +38,21 @@
             transform: translateX(-50%);
         }
     </style>
-    <ul th:fragment="menu(user)">
+    <ul th:fragment="menu" th:with="user = ${#authentication.principal}">
         <li><a th:href="@{/public/products}">Products</a></li>
         <li><a th:href="@{?lang=lt}">LT</a></li>
         <li><a th:href="@{?lang=en}">EN</a></li>
         <li><a th:href="@{/private/orders}">Orders</a></li>
-        <li>
-            <form th:if="${user != null}" th:action="@{/atsijungimas}" method="post">
+        <li class="authenticationBlock">
+            <form sec:authorize="isAuthenticated()"
+                  th:action="@{/atsijungimas}" method="post">
                 <button type="submit" th:text="Atsijungti"/>
             </form>
-            <a th:if="${user == null}" th:href="@{/prisijungimas}">Prisijungimas</a>
+            <a sec:authorize="isAnonymous()" th:href="@{/prisijungimas}">Prisijungimas</a>
         </li>
-        <li>
-            <span th:text="${user != null ? 'Sveiki ' + user.username : 'Neprisijunges' }"></span>
+        <li class="authenticationBlock">
+            <span sec:authorize="isAnonymous()" th:text="'Neprisijunges'"></span>
+            <span sec:authorize="isAuthenticated()" th:text="|Sveiki, ${user.fullName}|"></span>
         </li>
     </ul>
     <div th:fragment="footer" class="footer">
