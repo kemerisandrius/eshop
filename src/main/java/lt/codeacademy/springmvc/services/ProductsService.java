@@ -3,6 +3,11 @@ package lt.codeacademy.springmvc.services;
 import java.math.BigDecimal;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+import lt.codeacademy.springmvc.config.EshopConfigurationProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +22,30 @@ public class ProductsService {
 
     private ProductRepository productRepository;
 
+    @Autowired
+    private EshopConfigurationProperties eshopConfigurationProperties;
+
     public ProductsService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
     public Product getProduct(Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " was not found"));
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new ProductNotFoundException("Product was not found"));
+
+        if (eshopConfigurationProperties.getCountryOfOperation().equals("LT")) {
+            Product lithuanianProduct = new Product();
+            lithuanianProduct.setTitle(product.getTitle());
+            lithuanianProduct.setDescription(product.getDescription());
+            lithuanianProduct.setId(product.getId());
+            BigDecimal priceWithPVM = product.getPrice().multiply(
+                BigDecimal.valueOf(Long.valueOf(eshopConfigurationProperties.getPvmRate()))
+            );
+            lithuanianProduct.setPrice(priceWithPVM);
+
+            return lithuanianProduct;
+        }
+        return product;
     }
 
     public void deleteProduct(Long id) {
