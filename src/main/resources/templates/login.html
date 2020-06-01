@@ -5,24 +5,29 @@
     <title>Eshop - product</title>
     <style th:replace="fragments/main.html :: menustyle"></style>
 </head>
-    <body>
-        <div th:if="${param.error}">
-            Blogi prisijungimo duomenys.
-        </div>
+<body>
+<div th:if="${param.error}">
+    Blogi prisijungimo duomenys.
+</div>
 
-        <div th:if="${param.logout}">
-            Jūs sėkmingai atsijungėte.
-        </div>
+<div th:if="${param.logout}">
+    Jūs sėkmingai atsijungėte.
+</div>
 
-        <form th:action="@{/prisijungimas-submit}" method="POST">
-            <p th:text="#{vartotojoVardas}">Username</p>
-            <input type="text" name="user">
+<form th:action="@{/prisijungimas-submit}" method="POST">
+    <p>
+        <span th:text="#{vartotojoVardas}"></span>
+        <input type="text" name="user">
+    </p>
+    <p>
+        <span th:text="#{slaptazodis}"></span>
+        <input type="password" name="pass">
+    </p>
+    <p>
+        <button type="submit" th:text="#{pateikti}">Submit</button>
+    </p>
 
-            <p th:text="#{slaptazodis}">Password</p>
-            <input type="password" name="pass">
-
-            <button type="submit" th:text="#{pateikti}">Submit</button>
-        </form>
-        <div th:replace="fragments/main.html :: footer"></div>
-    </body>
+</form>
+<div th:replace="fragments/main.html :: footer"></div>
+</body>
 </html>

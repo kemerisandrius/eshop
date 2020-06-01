@@ -1,61 +1,100 @@
 <html
         xmlns:th="https://www.thymeleaf.org"
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <style th:fragment="menustyle">
-        * {
-            margin: 0;
-            padding: 0;
+<style th:fragment="menustyle">
+        body {
+            max-width: 860px;
+            min-width: 360px;
+            margin: 0px auto;
+            background: #F8F8F8;
+            padding:0px 5px;
         }
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
+
+        .page-title  {
+            font-size:120%;
+            text-align: left;
+            margin:10px 0px;
         }
-        li {
-            float: left;
-        }
-        li.authenticationBlock {
-            float: right;
-        }
-        li a, li span {
-            display: block;
+        .header-container {
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            background: #5f5f5f;
             color: white;
-            text-align: center;
-            padding: 14px 16px;
+        }
+        .header-container .header-bar  {
+            position: absolute;
+            right: 10px;
+            bottom: 20px;
+        }
+        .header-container .header-bar  a  {
+            color: white;
+            font-size: bold;
+        }
+
+        .menu-container {
+            text-align: right;
+            margin: 10px 5px;
+        }
+        .menu-container a {
+            margin: 5px 5px 5px 10px;
+            color: #004d99;
+            font-weight: bold;
             text-decoration: none;
         }
-
-        li a:hover {
-            background-color: #111;
+        .site-name {
+            font-size:200%;
+            margin:10px 10px 10px 0px;
+            padding: 5px;
         }
-
         .footer {
             position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
         }
+
+        #logoutForm {
+            display: inline-block;
+        }
     </style>
-    <ul th:fragment="menu" th:with="user = ${#authentication.principal}">
-        <li><a th:href="@{/public/products}">Products</a></li>
-        <li><a th:href="@{?lang=lt}">LT</a></li>
-        <li><a th:href="@{?lang=en}">EN</a></li>
-        <li><a th:href="@{/private/orders}">Orders</a></li>
-        <li class="authenticationBlock">
+
+<th:block th:fragment="menu" th:with="user = ${#authentication.principal}">
+    <div class="header-container">
+
+        <div class="site-name">Online Shop</div>
+
+        <div class="header-bar">
             <form sec:authorize="isAuthenticated()"
-                  th:action="@{/atsijungimas}" method="post">
-                <button type="submit" th:text="Atsijungti"/>
+                  th:action="@{/atsijungimas}"
+                  id="logoutForm" method="post">
+                <span th:text="|Sveiki, ${user.fullName}|"></span>
+                &nbsp;&nbsp;
+                <a href="#" onclick="document.getElementById('logoutForm').form.submit(); return false;">Atsijungti</a>
             </form>
-            <a sec:authorize="isAnonymous()" th:href="@{/prisijungimas}">Prisijungimas</a>
-        </li>
-        <li class="authenticationBlock">
-            <span sec:authorize="isAnonymous()" th:text="'Neprisijunges'"></span>
-            <span sec:authorize="isAuthenticated()" th:text="|Sveiki, ${user.fullName}|"></span>
-        </li>
-    </ul>
-    <div th:fragment="footer" class="footer">
-        Copyrights 2020
+
+            <th:block sec:authorize="!isAuthenticated()">
+                <a th:href="@{/prisijungimas}">Prisijungti</a>
+            </th:block>
+            &nbsp;&nbsp;
+            <a th:href="@{?lang=lt}">LT</a>
+            <a th:href="@{?lang=en}">EN</a>
+        </div>
+
     </div>
+
+    <div class="menu-container">
+        <a th:href="@{/public/products}">
+            Product List
+        </a>
+        |
+        <th:block sec:authorize="hasRole('CUSTOMER')">
+            <a th:href="@{/private/orders}">Orders</a>
+        </th:block>
+    </div>
+</th:block>
+
+<div th:fragment="footer" class="footer">
+    Copyrights 2020
+</div>
 </html>
