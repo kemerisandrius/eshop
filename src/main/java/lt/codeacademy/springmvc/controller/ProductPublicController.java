@@ -2,6 +2,8 @@ package lt.codeacademy.springmvc.controller;
 
 import java.math.BigDecimal;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -31,10 +33,12 @@ public class ProductPublicController {
     }
 
     @GetMapping("/{id}")
-    public String getProduct(@PathVariable Long id, Model model, @AuthenticationPrincipal User user) {
+    public String getProduct(@PathVariable Long id, Model model, @AuthenticationPrincipal User user,
+                             HttpSession session) {
         Product product = productsService.getProduct(id);
         model.addAttribute("product", product);
         model.addAttribute("user", user);
+
         return "product";
     }
 
@@ -50,6 +54,7 @@ public class ProductPublicController {
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("hasNextPage", products.hasNext());
         model.addAttribute("user", user);
+
         return "products";
     }
 }

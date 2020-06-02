@@ -7,7 +7,9 @@
     <style th:replace="fragments/main.html :: menustyle"></style>
 </head>
 <body>
-    <div th:replace="fragments/main.html :: menu(user = ${user})"></div>
+    <div th:replace="fragments/main.html :: menu"></div>
+
+    <h3 th:if="${created}">Productas sekmingai sukurtas!</h3>
 
     <h1 th:text="${product.title}"></h1>
     <p th:text="${product.id}"></p>
@@ -24,6 +26,9 @@
     <p>
         <a th:href="@{/private/orders/checkout(productId = ${product.id})}"
            sec:authorize="not hasRole('ADMIN')">Pirkti</a>
+    </p>
+    <p>
+        <a th:href="@{/public/cart/add/{productId}(productId = ${product.id})}">Į krepšelį</a>
     </p>
 
     <div th:replace="fragments/main.html :: footer"></div>

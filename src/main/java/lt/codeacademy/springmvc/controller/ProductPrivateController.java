@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lt.codeacademy.springmvc.entities.DeliveryInfo;
 import lt.codeacademy.springmvc.entities.Product;
@@ -23,6 +25,7 @@ import lt.codeacademy.springmvc.services.validator.CustomerInfoValidator;
 
 @Controller
 @RequestMapping("/private/products")
+@SessionAttributes("created")
 public class ProductPrivateController {
     private ProductsService productsService;
     private CustomerService customerService;
@@ -65,7 +68,7 @@ public class ProductPrivateController {
 
     @PostMapping("/product")
     @PreAuthorize("hasRole('ADMIN')")
-    public String submitProduct(@Valid Product product, BindingResult errors, Model model) {
+    public String submitProduct(@Valid Product product, BindingResult errors, Model model, RedirectAttributes redirectAttributes) {
 
         if (errors.hasErrors()) {
             return "productform";
@@ -73,6 +76,9 @@ public class ProductPrivateController {
 
         Product newProduct = productsService.createOrUpdateProduct(product);
         model.addAttribute("product", newProduct);
+
+        redirectAttributes.addFlashAttribute("created", true);
+
         return "redirect:/public/products/" + newProduct.getId();
     }
 

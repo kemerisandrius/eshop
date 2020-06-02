@@ -3,16 +3,13 @@ package lt.codeacademy.springmvc.services;
 import java.math.BigDecimal;
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-import lt.codeacademy.springmvc.config.EshopConfigurationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import lt.codeacademy.springmvc.config.EshopConfigurationProperties;
 import lt.codeacademy.springmvc.controller.ProductNotFoundException;
 import lt.codeacademy.springmvc.entities.Product;
 import lt.codeacademy.springmvc.repositories.ProductRepository;
@@ -39,7 +36,7 @@ public class ProductsService {
             lithuanianProduct.setDescription(product.getDescription());
             lithuanianProduct.setId(product.getId());
             BigDecimal priceWithPVM = product.getPrice().multiply(
-                BigDecimal.valueOf(Long.valueOf(eshopConfigurationProperties.getPvmRate()))
+                new BigDecimal(eshopConfigurationProperties.getPvmRate())
             );
             lithuanianProduct.setPrice(priceWithPVM);
 

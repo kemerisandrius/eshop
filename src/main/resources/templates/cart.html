@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head>
     <meta charset="UTF-8">
     <title>Eshop - all products</title>
@@ -9,6 +9,7 @@
 </head>
 <body>
 <div th:replace="fragments/main.html :: menu(user = ${user})"></div>
+
 <table>
     <thead>
     <tr>
@@ -18,7 +19,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="product : ${products}">
+    <tr th:each="product : ${cart}">
         <td th:text="${product.title}" />
         <td th:text="${product.price}" />
         <td>
@@ -29,12 +30,11 @@
     </tr>
     </tbody>
 </table>
-<a th:if="${pageNumber ne empty and pageNumber ne 0}" th:href="@{/products/paginated(pageNumber=${pageNumber - 1})}"> < </a>
-<a th:if="${hasNextPage}" th:href="@{/products/paginated(pageNumber=${pageNumber + 1})}"> > </a>
-<a th:href="@{/private/products/product}"
-   sec:authorize="hasRole('ADMIN')">
-    Kurti nauja
+
+<a th:href="@{/public/cart/buy}">
+    Pirkti
 </a>
+
 <div th:replace="fragments/main.html :: footer"></div>
 </body>
 </html>

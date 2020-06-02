@@ -1,13 +1,5 @@
 package lt.codeacademy.springmvc.controller;
 
-import lombok.extern.slf4j.Slf4j;
-import lt.codeacademy.springmvc.entities.DeliveryInfo;
-import lt.codeacademy.springmvc.entities.Order;
-import lt.codeacademy.springmvc.entities.Product;
-import lt.codeacademy.springmvc.entities.User;
-import lt.codeacademy.springmvc.services.OrderService;
-import lt.codeacademy.springmvc.services.ProductsService;
-import lt.codeacademy.springmvc.services.SpringDataUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,6 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import lombok.extern.slf4j.Slf4j;
+import lt.codeacademy.springmvc.entities.DeliveryInfo;
+import lt.codeacademy.springmvc.entities.Order;
+import lt.codeacademy.springmvc.entities.Product;
+import lt.codeacademy.springmvc.entities.User;
+import lt.codeacademy.springmvc.services.OrderService;
+import lt.codeacademy.springmvc.services.ProductsService;
+import lt.codeacademy.springmvc.services.SpringDataUserDetailsService;
 
 @Controller
 @RequestMapping("/private/orders")

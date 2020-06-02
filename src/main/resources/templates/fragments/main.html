@@ -90,7 +90,11 @@
         |
         <th:block sec:authorize="hasRole('CUSTOMER')">
             <a th:href="@{/private/orders}">Orders</a>
+            |
         </th:block>
+        <a th:href="@{/public/cart}">
+            My Cart
+        </a>
     </div>
 </th:block>
 
