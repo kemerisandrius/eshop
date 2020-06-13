@@ -4,10 +4,10 @@ import { NavLink } from "react-router-dom";
 
 export default () => (
     <div className="menu-container">
-        <NavLink to="/products">Product List</NavLink>
+        <NavLink to="/products" activeClassName="selected">Product List</NavLink>
         |
-        <NavLink to="/orders">Orders</NavLink>
+        <NavLink to="/orders" activeClassName="selected">Orders</NavLink>
         |
-        <NavLink to="/cart">My Cart</NavLink>
+        <NavLink to="/cart" activeClassName="selected">My Cart</NavLink>
     </div>
 )

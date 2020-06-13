@@ -1,12 +1,13 @@
 import React from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
+import ProductList from "../../pages/ProductList/ProductList";
 
 export default () => (
     <Switch>
         <Redirect exact from="/" to="/products" />
 
         <Route path="/products">
-            <h1>Product list</h1>
+            <ProductList />
         </Route>
         <Route path="/orders">
             <h1>Orders</h1>
