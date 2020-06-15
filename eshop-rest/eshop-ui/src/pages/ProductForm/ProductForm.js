@@ -2,33 +2,23 @@ import React from 'react';
 import productsApi from '../../api/productsApi';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import './styles.css';
+import * as Yup from 'yup';
 
 
 export default () => {
   return (
     <Formik
       initialValues={{title: '', description: '', price: ''}}
-      validate={values => {
-        const errors = {};
-
-        if (!values.title) {
-          errors.title = 'Required!';
-        }
-
-        if (!values.description) {
-          errors.description = 'Required!'
-        }
-
-        if (!values.price) {
-          errors.price = 'Required!'
-        } else if (isNaN(values.price)) {
-          errors.price = 'Must be a number';
-        } else if (values.price < 0.01) {
-          errors.price = 'Must be bigger than 0.00'
-        }
-
-        return errors;
-      }}
+      validationSchema={Yup.object().shape({
+        title: Yup.string()
+          .required('Title is required'),
+        description: Yup.string()
+          .required('Description is required'),
+        price: Yup.number()
+          .typeError('Must be a number')
+          .min(0.01, 'Price must be bigger than 0.01')
+          .required('Price is required')
+      })}
       onSubmit={values => {
         productsApi.createProduct(values);
       }}
