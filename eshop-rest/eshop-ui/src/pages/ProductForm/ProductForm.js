@@ -1,6 +1,6 @@
 import React from 'react';
 import productsApi from '../../api/productsApi';
-import { Formik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import './styles.css';
 
 
@@ -33,52 +33,27 @@ export default () => {
         productsApi.createProduct(values);
       }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit
-        }) => (
-          <form onSubmit={handleSubmit}>
+        {() => (
+          <Form>
             <div>
               <label htmlFor="title">Title:</label>
-              <input
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.title}
-                type="text"
-                name="title"
-              ></input>
-              { errors.title && touched.title && <div className="error">{errors.title}</div> }
+              <Field name="title" type="text" />
+              <ErrorMessage className="error" name="title" component="div" />
             </div>
             <div>
               <label htmlFor="description">Description:</label>
-              <input
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.description}
-                type="text"
-                name="description"
-              ></input>
-              { errors.description && touched.description && <div className="error">{ errors.description }</div>}
+              <Field name="description" type="text" />
+              <ErrorMessage className="error" name="description" component="div" />
             </div>
             <div>
               <label htmlFor="price">Price:</label>
-              <input
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.price}
-                type="text"
-                name="price"
-              ></input>
-              { errors.price && touched.price && <div className="error">{ errors.price }</div>}
+              <Field name="price" type="text" />
+              <ErrorMessage className="error" name="price" component="div" />
             </div>
             <div>
               <input type="submit" value="Create"></input>
             </div>
-         </form>
+         </Form>
       )}
     </Formik>
   )
