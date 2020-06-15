@@ -1,58 +1,85 @@
-import React, { useState } from 'react';
+import React from 'react';
 import productsApi from '../../api/productsApi';
+import { Formik } from 'formik';
+import './styles.css';
+
 
 export default () => {
-  const [product, setProduct] = useState({});
-  const [errors, setErrors] = useState({});
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    validateProduct(product);
-    if (!errors.title && !errors.description && !errors.price) {
-      productsApi.createProduct(product);
-    }
-  }
-
-  const validateProduct = (product) => {
-      let errors = {}
-      if (!product.price || isNaN(product.price) || product.price <= 0.01) {
-        errors = {...errors,  price: 'Price must be a number bigger than 0.01'}
-      }
-      if (!product.description || product.description === '' || product.description === null) {
-        errors = {...errors,  description: 'Description should not be empty'}
-      }
-      if (!product.title || product.title === '' || product.title === null) {
-        errors = {...errors,  title: 'Title should not be empty'}
-      }
-      setErrors({...errors})
-  }
-
-  const handleInputChange = (event) => {
-    const value = event.target.value;
-    const name = event.target.name;
-    setProduct({ ...product, [name]: value })
-  }
   return (
+    <Formik
+      initialValues={{title: '', description: '', price: ''}}
+      validate={values => {
+        const errors = {};
 
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input onChange={handleInputChange} type="text" name="title"></input>
-        { errors.title && <div>{errors.title}</div> }
-      </div>
-      <div>
-        <label htmlFor="description">Description:</label>
-        <input onChange={handleInputChange} type="text" name="description"></input>
-        { errors.description && <div>{ errors.description }</div>}
-      </div>
-      <div>
-        <label htmlFor="price">Price:</label>
-        <input onChange={handleInputChange} type="text" name="price"></input>
-        { errors.price && <div>{ errors.price }</div>}
-      </div>
-      <div>
-        <input type="submit" value="Create"></input>
-      </div>
-    </form>
+        if (!values.title) {
+          errors.title = 'Required!';
+        }
+
+        if (!values.description) {
+          errors.description = 'Required!'
+        }
+
+        if (!values.price) {
+          errors.price = 'Required!'
+        } else if (isNaN(values.price)) {
+          errors.price = 'Must be a number';
+        } else if (values.price < 0.01) {
+          errors.price = 'Must be bigger than 0.00'
+        }
+
+        return errors;
+      }}
+      onSubmit={values => {
+        productsApi.createProduct(values);
+      }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="title">Title:</label>
+              <input
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.title}
+                type="text"
+                name="title"
+              ></input>
+              { errors.title && touched.title && <div className="error">{errors.title}</div> }
+            </div>
+            <div>
+              <label htmlFor="description">Description:</label>
+              <input
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.description}
+                type="text"
+                name="description"
+              ></input>
+              { errors.description && touched.description && <div className="error">{ errors.description }</div>}
+            </div>
+            <div>
+              <label htmlFor="price">Price:</label>
+              <input
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.price}
+                type="text"
+                name="price"
+              ></input>
+              { errors.price && touched.price && <div className="error">{ errors.price }</div>}
+            </div>
+            <div>
+              <input type="submit" value="Create"></input>
+            </div>
+         </form>
+      )}
+    </Formik>
   )
 }
