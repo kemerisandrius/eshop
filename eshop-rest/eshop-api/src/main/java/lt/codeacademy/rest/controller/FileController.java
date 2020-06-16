@@ -1,5 +1,6 @@
 package lt.codeacademy.rest.controller;
 
+import java.net.URLConnection;
 import lt.codeacademy.rest.services.FileStorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -33,8 +34,10 @@ public class FileController {
     public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName) {
         Resource resource = fileStorageService.getFile(fileName);
 
+        String contentType = URLConnection.guessContentTypeFromName(resource.getFilename());
+
         return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.parseMediaType(contentType))
                 .body(resource);
     }
 }
