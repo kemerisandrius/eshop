@@ -1,5 +1,7 @@
 package lt.codeacademy.rest.controller;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.services.ProductsService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,9 @@ public class ProductsController {
         this.productsService = productsService;
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 500, message = "Somethings wrong")
+    })
     @GetMapping
     public List<Product> getProducts() {
         return productsService.getAllProducts();

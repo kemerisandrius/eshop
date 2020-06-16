@@ -1,5 +1,7 @@
 package lt.codeacademy.rest.entities;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -17,11 +19,13 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Products")
+@ApiModel(value = "Product", description = "A product in this eshop")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
+    @ApiModelProperty(hidden = true)
     private Long id;
 
     @Column(name = "title")
