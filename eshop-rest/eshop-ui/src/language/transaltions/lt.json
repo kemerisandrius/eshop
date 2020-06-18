@@ -1,0 +1,14 @@
+{
+  "common": {
+  },
+  "menu": {
+    "products": "Produktų sąrašas",
+    "orders": "Užsakymai",
+    "cart": "Krepšelis"
+  },
+  "validations": {
+    "required": "Laukas yra privalomas",
+    "typeError": "Blogas reikšmės tipas",
+    "numberMin": "Reikšmė privalo būti didesnė nei {{min}}"
+  }
+}

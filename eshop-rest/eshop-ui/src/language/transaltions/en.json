@@ -1,0 +1,14 @@
+{
+  "common": {
+  },
+  "menu": {
+    "products": "Product List",
+    "orders": "Orders",
+    "cart": "My Cart"
+  },
+  "validations": {
+    "required": "Field is required",
+    "typeError": "Bad value type",
+    "numberMin": "Value must be bigger than {{min}}"
+  }
+}
