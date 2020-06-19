@@ -1,5 +1,8 @@
 {
   "common": {
+    "title": "Title",
+    "description": "Description",
+    "price": "Price"
   },
   "menu": {
     "products": "Product List",
@@ -7,8 +10,9 @@
     "cart": "My Cart"
   },
   "validations": {
-    "required": "Field is required",
+    "default": "Field is not valid",
+    "required": "Field \"$t({{label}})\" is required",
     "typeError": "Bad value type",
-    "numberMin": "Value must be bigger than {{min}}"
+    "numberMin": "Value of \"$t({{label}})\" must be bigger than {{min}}"
   }
 }

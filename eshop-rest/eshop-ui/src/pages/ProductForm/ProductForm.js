@@ -1,9 +1,9 @@
 import React from 'react';
 import productsApi from '../../api/productsApi';
-import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {Formik, Form, Field} from 'formik';
 import './styles.css';
 import * as Yup from 'yup';
-import {useTranslation} from "react-i18next";
+import ErrorMessageTranslated from "../../components/ErrorMessageTranslated/ErrorMessageTranslated";
 
 const initialState = {
     title: '',
@@ -11,16 +11,17 @@ const initialState = {
     price: ''
 }
 
-
-
 export default () => {
 
     const validationSchema = Yup.object().shape({
         title: Yup.string()
+            .label("common:title")
             .required(),
         description: Yup.string()
+            .label("common:description")
             .required(),
         price: Yup.number()
+            .label("common:price")
             .typeError()
             .min(0.01)
             .required()
@@ -34,23 +35,22 @@ export default () => {
                 productsApi.createProduct(values);
             }}
         >
-            {() => {
-                return (
+            {() => (
                     <Form>
                         <div>
                             <label htmlFor="title">Title:</label>
                             <Field name="title" type="text"/>
-                            <ErrorMessage className="error" name="title" component="div"/>
+                            <ErrorMessageTranslated className="error" name="title"/>
                         </div>
                         <div>
                             <label htmlFor="description">Description:</label>
                             <Field name="description" type="text"/>
-                            <ErrorMessage className="error" name="description" component="div"/>
+                            <ErrorMessageTranslated className="error" name="description"/>
                         </div>
                         <div>
                             <label htmlFor="price">Price:</label>
                             <Field name="price" type="text"/>
-                            <ErrorMessage className="error" name="price" component="div"/>
+                            <ErrorMessageTranslated className="error" name="price"/>
                         </div>
                         <div>
                             <input type="submit" value="Create"></input>
@@ -58,7 +58,6 @@ export default () => {
                     </Form>
                 )
             }
-        }
         </Formik>
     )
 }

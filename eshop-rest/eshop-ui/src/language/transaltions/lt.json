@@ -1,5 +1,8 @@
 {
   "common": {
+    "title": "Pavadinimas",
+    "description": "Aprašymas",
+    "price": "Kaina"
   },
   "menu": {
     "products": "Produktų sąrašas",
@@ -7,8 +10,9 @@
     "cart": "Krepšelis"
   },
   "validations": {
-    "required": "Laukas yra privalomas",
+    "default": "Laukas yra nevalidus",
+    "required": "Laukas \"$t({{label}})\" yra privalomas",
     "typeError": "Blogas reikšmės tipas",
-    "numberMin": "Reikšmė privalo būti didesnė nei {{min}}"
+    "numberMin": "Lauko \"$t({{label}})\" reikšmė privalo būti didesnė nei {{min}}"
   }
 }

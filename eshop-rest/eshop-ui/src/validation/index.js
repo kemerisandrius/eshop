@@ -1,16 +1,15 @@
 import * as Yup from 'yup'
-import i18n from '../language/i18n'
 
 Yup.setLocale({
     mixed: {
-        default: i18n.t('validations:required'),
-        required: i18n.t('validations:required')
+        default: 'validations:default',
+        required: (values) => ({key: 'validations:required', values})
     },
     string: {
-        min: ({min}) => i18n.t('validations:required', {min}),
-        max: ({max}) => i18n.t('validations:required', {max})
+        min: ({min}) => 'validations:required',
+        max: ({max}) => 'validations:required'
     },
     number: {
-        min: ({min}) => i18n.t('validations:numberMin', {min}),
+        min: (values) => ({key: 'validations:numberMin', values})
     }
 })
