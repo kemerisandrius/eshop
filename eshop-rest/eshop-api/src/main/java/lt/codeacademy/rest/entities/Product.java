@@ -39,4 +39,7 @@ public class Product {
     @DecimalMin("0.01")
     @NotNull
     private BigDecimal price;
+
+    @Column(name = "file_name")
+    private String fileName;
 }

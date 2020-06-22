@@ -3,6 +3,7 @@ package lt.codeacademy.rest.controller;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.math.BigDecimal;
+import java.util.Optional;
 import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.services.ProductsService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,11 @@ public class ProductsController {
             @RequestParam(name = "description", required = false) String description,
             @RequestParam(name = "price") BigDecimal price
     ) {
-        return null;
-//        return productsService.createProduct(product);
+        Product product = new Product();
+        product.setTitle(title);
+        product.setDescription(description);
+        product.setPrice(price);
+
+        return productsService.createProduct(product, file);
     }
 }
