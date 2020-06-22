@@ -32,4 +32,9 @@ public class ProductsService {
         }
         return productRepository.save(product);
     }
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No product found"));
+    }
 }

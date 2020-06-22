@@ -4,6 +4,9 @@ export default {
     fetchProducts() {
         return axios.get('http://localhost:8080/products')
     },
+    fetchProductById(id) {
+        return axios.get(`http://localhost:8080/products/${id}`);
+    },
     createProduct(product, file) {
         let data = new FormData();
         data.append("file", file);
