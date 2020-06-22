@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 @Data
 @Builder
@@ -44,4 +45,7 @@ public class Product {
 
     @Column(name = "file_name")
     private String fileName;
+
+    @Tolerate
+    public Product(){}
 }
