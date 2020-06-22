@@ -2,15 +2,18 @@ package lt.codeacademy.rest.controller;
 
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.math.BigDecimal;
 import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.services.ProductsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/products")
@@ -31,7 +34,13 @@ public class ProductsController {
     }
 
     @PostMapping("/product")
-    public Product createProduct(@RequestBody Product product) {
-        return productsService.createProduct(product);
+    public Product createProduct(
+            @RequestParam(name = "file", required = false) MultipartFile file,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "description", required = false) String description,
+            @RequestParam(name = "price") BigDecimal price
+    ) {
+        return null;
+//        return productsService.createProduct(product);
     }
 }

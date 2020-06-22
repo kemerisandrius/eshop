@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import productsApi from '../../api/productsApi';
 import {Formik, Form, Field} from 'formik';
 import './styles.css';
@@ -12,6 +12,12 @@ const initialState = {
 }
 
 export default () => {
+
+    const [file, setFile] = useState({});
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    }
 
     const validationSchema = Yup.object().shape({
         title: Yup.string()
@@ -32,7 +38,7 @@ export default () => {
             initialValues={initialState}
             validationSchema={validationSchema}
             onSubmit={values => {
-                productsApi.createProduct(values);
+                productsApi.createProduct(values, file);
             }}
         >
             {() => (
@@ -51,6 +57,10 @@ export default () => {
                             <label htmlFor="price">Price:</label>
                             <Field name="price" type="text"/>
                             <ErrorMessageTranslated className="error" name="price"/>
+                        </div>
+                        <div>
+                            <label htmlFor="file">File:</label>
+                            <Field name="files" type="file" onChange={handleFileChange}/>
                         </div>
                         <div>
                             <input type="submit" value="Create"></input>
