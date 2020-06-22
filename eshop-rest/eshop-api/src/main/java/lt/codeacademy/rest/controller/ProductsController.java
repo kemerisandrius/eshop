@@ -41,10 +41,11 @@ public class ProductsController {
             @RequestParam(name = "description", required = false) String description,
             @RequestParam(name = "price") BigDecimal price
     ) {
-        Product product = new Product();
-        product.setTitle(title);
-        product.setDescription(description);
-        product.setPrice(price);
+        Product product = Product.builder()
+                .title(title)
+                .description(description)
+                .price(price)
+                .build();
 
         return productsService.createProduct(product, file);
     }
