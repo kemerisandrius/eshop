@@ -4,7 +4,6 @@ import productsApi from '../../api/productsApi';
 
 export default () => {
   const { id } = useParams();
-
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -17,6 +16,12 @@ export default () => {
      <h1>{product.title}</h1>
      <p>{product.description}</p>
      <p>{product.price}</p>
+     {product.fileName &&
+      <img
+        src={`http://localhost:8080/files/${product.fileName}`}
+        alt="Very beautiful product"
+      />
+      }
    </div>
   )
 };

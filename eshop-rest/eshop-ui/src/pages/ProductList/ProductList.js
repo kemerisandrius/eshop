@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
 import productApi from '../../api/productsApi'
+import { NavLink } from 'react-router-dom'
 
 export default () => {
 
@@ -24,7 +25,7 @@ export default () => {
                     <tr key={product.id}>
                         <td>{product.title}</td>
                         <td>{product.price}</td>
-                        <td>More</td>
+                        <td><NavLink to={`/products/${product.id}`} >More</NavLink></td>
                     </tr>
                 ))}
             </tbody>
