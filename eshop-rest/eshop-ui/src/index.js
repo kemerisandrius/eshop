@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 
 import './language/i18n'
-import './validation'
-
 
 ReactDOM.render(
   <React.StrictMode>

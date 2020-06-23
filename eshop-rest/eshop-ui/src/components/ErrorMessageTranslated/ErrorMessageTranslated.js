@@ -18,5 +18,5 @@ export default ({render, children, component = 'div', name, ...props}) => {
             return React.createElement(component, props, t(msgKey, values))
         })
 
-    return <ErrorMessage key={i18n.language + name} name={name} render={renderFn}  />
+    return <ErrorMessage key={i18n.language + name} name={name} render={renderFn} />
 }
