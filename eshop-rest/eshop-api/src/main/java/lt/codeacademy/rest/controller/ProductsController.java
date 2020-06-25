@@ -2,10 +2,14 @@ package lt.codeacademy.rest.controller;
 
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.Optional;
 import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.services.ProductsService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,5 +58,18 @@ public class ProductsController {
                 .build();
 
         return productsService.createProduct(product, file);
+    }
+
+    @GetMapping("/fail")
+    public Product getFailure() {
+        throw new RuntimeException("This is an error");
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorContext> handleRuntimeException(Exception ex) {
+        ErrorContext errorContext = new ErrorContext();
+        errorContext.error = ex.getMessage();
+        errorContext.code = "1";
+        return new ResponseEntity<>(errorContext, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
