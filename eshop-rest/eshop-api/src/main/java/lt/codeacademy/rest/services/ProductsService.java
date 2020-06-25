@@ -2,6 +2,7 @@ package lt.codeacademy.rest.services;
 
 import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.repositories.ProductRepository;
+import lt.codeacademy.rest.services.exceptions.ProductNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +36,6 @@ public class ProductsService {
 
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No product found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " was not found"));
     }
 }

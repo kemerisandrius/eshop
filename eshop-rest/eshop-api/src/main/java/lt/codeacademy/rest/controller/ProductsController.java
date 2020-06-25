@@ -64,12 +64,4 @@ public class ProductsController {
     public Product getFailure() {
         throw new RuntimeException("This is an error");
     }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorContext> handleRuntimeException(Exception ex) {
-        ErrorContext errorContext = new ErrorContext();
-        errorContext.error = ex.getMessage();
-        errorContext.code = "1";
-        return new ResponseEntity<>(errorContext, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }
