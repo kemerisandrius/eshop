@@ -1,6 +1,5 @@
 package lt.codeacademy.rest.services;
 
-import java.util.stream.Collectors;
 import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.repositories.ProductRepository;
 import lt.codeacademy.rest.services.exceptions.ProductNotFoundException;
