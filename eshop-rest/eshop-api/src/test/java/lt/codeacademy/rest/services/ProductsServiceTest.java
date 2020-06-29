@@ -13,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,6 +42,7 @@ class ProductsServiceTest {
 
         List<Product> allProducts = productsService.getAllProducts();
         Assertions.assertTrue(!allProducts.isEmpty());
+        verify(productRepository).findAll();
     }
 
     @Test
