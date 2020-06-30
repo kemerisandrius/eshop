@@ -3,10 +3,16 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import ProductList from "../../pages/ProductList/ProductList";
 import ProductForm from "../../pages/ProductForm/ProductForm";
 import ProductPage from "../../pages/ProductPage/ProductPage";
+import Login from "../../pages/Login/Login";
 
 export default () => (
     <Switch>
         <Redirect exact from="/" to="/products" />
+
+        <Route path="/login">
+            <Login/>
+        </Route>
+
         <Route exact path="/products/product">
             <ProductForm />
         </Route>

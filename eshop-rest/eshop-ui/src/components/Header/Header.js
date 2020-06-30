@@ -1,6 +1,7 @@
 import React from "react";
 import './Header.css'
 import { useTranslation } from "react-i18next";
+import {NavLink} from "react-router-dom";
 
 export default () => {
 
@@ -17,7 +18,7 @@ export default () => {
             <div className="site-name">Online Shop</div>
 
             <div className="header-bar">
-                <a href="#">Prisijungti</a>
+                <NavLink to="/login">Prisijungti</NavLink>
                 <a href="#" onClick={changeLanguage('lt')}>LT</a>
                 <a href="#" onClick={changeLanguage('en')}>EN</a>
             </div>
