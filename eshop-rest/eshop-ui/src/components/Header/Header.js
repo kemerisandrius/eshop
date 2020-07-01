@@ -1,27 +1,46 @@
-import React from "react";
+import React, {useContext} from "react";
 import './Header.css'
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
+import {setCredentials} from "../../api";
+import {UserContext} from "../../App";
 
 export default () => {
 
-   const { i18n } = useTranslation()
+    const {i18n} = useTranslation()
+    const {user, logout, loggedIn} = useContext(UserContext)
 
-   const changeLanguage = lang => e => {
-       e.preventDefault()
-       i18n.changeLanguage(lang)
-   }
+    const changeLanguage = lang => e => {
+        e.preventDefault()
+        i18n.changeLanguage(lang)
+    }
 
-   return (
+    const logoutClick = (e) => {
+        e.preventDefault()
+        setCredentials(null)
+        logout()
+    }
+
+    const loggedInBlock = loggedIn() ?
+        (
+            <>
+                <span>{user.name} {user.lastName}</span>
+                &nbsp;
+                <a href="#" onClick={logoutClick}>Atsijungti</a>
+            </>
+        ) :
+        <NavLink to="/login">Prisijungti</NavLink>
+
+    return (
         <div className="header-container">
 
             <div className="site-name">Online Shop</div>
 
             <div className="header-bar">
-                <NavLink to="/login">Prisijungti</NavLink>
+                {loggedInBlock}
                 <a href="#" onClick={changeLanguage('lt')}>LT</a>
                 <a href="#" onClick={changeLanguage('en')}>EN</a>
             </div>
         </div>
-   )
+    )
 }
