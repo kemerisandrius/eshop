@@ -5,6 +5,7 @@ import {setCredentials} from "../../api";
 import {UserContext} from "../../App";
 import userApi from "../../api/userApi";
 import { useHistory } from "react-router-dom"
+import { Button } from '@material-ui/core'
 
 const initialValues = {
     username: '',
@@ -40,7 +41,7 @@ export default () => {
                         <Field name="password" type="password"/>
                     </div>
                     <div>
-                        <button type="submit">Login</button>
+                        <Button variant="contained" color="primary" type="submit">Login</Button>
                     </div>
                     <FormikState {...props}/>
                 </Form>

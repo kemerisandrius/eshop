@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import productApi from '../../api/productsApi'
 import { NavLink } from 'react-router-dom'
+import { Button } from '@material-ui/core'
 
 export default () => {
 
@@ -29,6 +30,7 @@ export default () => {
                     </tr>
                 ))}
             </tbody>
+            <Button variant="contained" color="primary">Kurti produktą</Button>
         </table>
     )
 }
