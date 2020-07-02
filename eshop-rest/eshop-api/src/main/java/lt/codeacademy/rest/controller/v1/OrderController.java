@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Deprecated
 @RestController("OrderController.v1")
-@RequestMapping("/v1/orders")
+@RequestMapping("/v1/private/orders")
 public class OrderController {
 
     private OrderService orderService;

@@ -5,6 +5,8 @@ import './styles.css';
 import '../../validation';
 import * as Yup from 'yup';
 import ErrorMessageTranslated from "../../components/ErrorMessageTranslated/ErrorMessageTranslated";
+import { TextField } from 'formik-material-ui';
+import { Button, Input } from '@material-ui/core'; 
 
 const initialState = {
     title: '',
@@ -44,26 +46,23 @@ export default () => {
             {(props) => (
                 <Form>
                     <div>
-                        <label htmlFor="title">Title:</label>
-                        <Field name="title" type="text"/>
+                        <Field label="Title" name="title" type="text" component={TextField}/>
                         <ErrorMessageTranslated className="error" name="title"/>
                     </div>
                     <div>
-                        <label htmlFor="description">Description:</label>
-                        <Field name="description" type="text"/>
+                        <Field label="Description" name="description"  type="text" component={TextField}/>
                         <ErrorMessageTranslated className="error" name="description"/>
                     </div>
                     <div>
-                        <label htmlFor="price">Price:</label>
-                        <Field name="price" type="text"/>
+                        <Field label="Price" name="price" type="text" component={TextField}/>
                         <ErrorMessageTranslated className="error" name="price"/>
                     </div>
                     <div>
-                        <label htmlFor="file">File:</label>
-                        <Field name="files" type="file" onChange={handleFileChange}/>
+                        <Input type="file" label="Files" onChange={handleFileChange} />
+                        {/* <Field name="files" type="file" onChange={handleFileChange}/> */}
                     </div>
                     <div>
-                        <input type="submit" value="Create"></input>
+                        <Button variant="contained" color="primary" type="submit"> Create </Button>
                     </div>
                 </Form>
             )

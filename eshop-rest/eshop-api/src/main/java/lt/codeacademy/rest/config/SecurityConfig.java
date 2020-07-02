@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -22,12 +23,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    private final OrRequestMatcher PRIVATE_ROUTES = new OrRequestMatcher(
+            new AntPathRequestMatcher("/v1/private/**"),
+            new AntPathRequestMatcher("/v2/private/**")
+    );
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-//                .requestMatchers(new OrRequestMatcher(new AntPathRequestMatcher("/private/**")))
-                .anyRequest() //Jei norime turėti dalį public route šios eilutės nereikia, o viršutinę reikia atkomentuoti, visi route'ai prasidedantys /private reikalaus credentialų
+                .requestMatchers(PRIVATE_ROUTES)
+//                .anyRequest() //Jei norime turėti dalį public route šios eilutės nereikia, o viršutinę reikia atkomentuoti, visi route'ai prasidedantys /private reikalaus credentialų
                 .authenticated()
                     .and()
                 .sessionManagement()

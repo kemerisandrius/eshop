@@ -43,7 +43,7 @@ public class ProductsController {
         return productsService.getProductById(id);
     }
 
-    @PostMapping("/product")
+    @PostMapping("/private/product")
     public Product createProduct(
             @RequestParam(name = "file", required = false) MultipartFile file,
             @RequestParam(name = "title") String title,
