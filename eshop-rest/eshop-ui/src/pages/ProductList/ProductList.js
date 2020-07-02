@@ -1,7 +1,16 @@
 import React, {useEffect, useState} from "react"
 import productApi from '../../api/productsApi'
 import { NavLink } from 'react-router-dom'
-import { Button } from '@material-ui/core'
+import {
+    TableBody,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableContainer,
+    Button,
+    Paper
+} from '@material-ui/core'
 
 export default () => {
 
@@ -13,24 +22,30 @@ export default () => {
     }, [])
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {products.map(product => (
-                    <tr key={product.id}>
-                        <td>{product.title}</td>
-                        <td>{product.price}</td>
-                        <td><NavLink to={`/products/${product.id}`} >More</NavLink></td>
-                    </tr>
-                ))}
-            </tbody>
-            <Button variant="contained" color="primary">Kurti produktą</Button>
-        </table>
+        <>
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Title</TableCell>
+                        <TableCell>Price</TableCell>
+                        <TableCell>Action</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {products.map(product => (
+                        <TableRow key={product.title}>
+                            <TableCell>{product.title}</TableCell>
+                            <TableCell>{product.price}</TableCell>
+                            <TableCell>
+                                <NavLink to={`products/${product.id}`}>More...</NavLink>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+        <Button variant="contained" color="primary">Kurti produkta</Button>
+       </>
     )
 }
