@@ -1,4 +1,4 @@
-package lt.codeacademy.rest.controller;
+package lt.codeacademy.rest.controller.v2;
 
 import java.net.URLConnection;
 import lt.codeacademy.rest.services.FileStorageService;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@RestController
-@RequestMapping("/files")
+@RestController("FileController.v2")
+@RequestMapping("/v2/files")
 public class FileController {
 
     private final FileStorageService fileStorageService;

@@ -1,28 +1,24 @@
-package lt.codeacademy.rest.controller;
+package lt.codeacademy.rest.controller.v1;
 
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.List;
 import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.services.ProductsService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
-@RestController
-@RequestMapping("/products")
+@Deprecated
+@RestController("ProductsController.v1")
+@RequestMapping("/v1/products")
 public class ProductsController {
 
     private final ProductsService productsService;
@@ -38,6 +34,15 @@ public class ProductsController {
     public List<Product> getProducts() {
         return productsService.getAllProducts();
     }
+
+    @GetMapping("/paginated")
+    public Page<Product> getProductsPaginated(
+            @RequestParam(name = "pageNumber", required = false, defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize") int pageSize
+    ) {
+        return productsService.getProductsPaginated(pageNumber, pageSize);
+    }
+
 
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id) {

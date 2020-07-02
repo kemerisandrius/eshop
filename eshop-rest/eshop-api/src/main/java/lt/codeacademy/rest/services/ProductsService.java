@@ -3,6 +3,9 @@ package lt.codeacademy.rest.services;
 import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.repositories.ProductRepository;
 import lt.codeacademy.rest.services.exceptions.ProductNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +40,10 @@ public class ProductsService {
     public Product getProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " was not found"));
+    }
+
+    public Page<Product> getProductsPaginated(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return productRepository.findAll(pageable);
     }
 }

@@ -1,4 +1,4 @@
-package lt.codeacademy.rest.controller;
+package lt.codeacademy.rest.controller.v1;
 
 import lombok.Data;
 import lt.codeacademy.rest.entities.Role;
@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/user")
+@Deprecated
+@RestController("UserController.v1")
+@RequestMapping("/v1/user")
 public class UserController {
 
     @GetMapping

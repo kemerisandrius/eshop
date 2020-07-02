@@ -1,10 +1,7 @@
-package lt.codeacademy.rest.controller;
+package lt.codeacademy.rest.controller.v2;
 
-import java.util.Arrays;
 import java.util.List;
-import lt.codeacademy.rest.entities.Customer;
 import lt.codeacademy.rest.entities.Order;
-import lt.codeacademy.rest.entities.Product;
 import lt.codeacademy.rest.services.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("Endpoints for order management")
-@RequestMapping("/orders")
+@RestController("OrderController.v2")
+@RequestMapping("/v2/orders")
 public class OrderController {
 
     private OrderService orderService;

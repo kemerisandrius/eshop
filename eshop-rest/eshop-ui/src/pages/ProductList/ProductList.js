@@ -9,17 +9,33 @@ import {
     TableCell,
     TableContainer,
     Button,
-    Paper
+    Paper,
+    TablePagination,
+    CircularProgress
 } from '@material-ui/core'
+
+import './styles.css';
 
 export default () => {
 
-    const [products, setProducts] = useState([]);
+    const [productsPage, setProductsPage] = useState({ content: [] });
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(25);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        productApi.fetchProducts()
-            .then(response => setProducts(response.data))
-    }, [])
+        productApi.fetchProducts(page, rowsPerPage)
+        .then(response => setProductsPage(response.data))
+        .finally(() => setIsLoading(false));
+    }, [page, rowsPerPage])
+
+    const handleChangeRowsPerPage = (e) => {
+        setRowsPerPage(e.target.value);
+    }
+
+    const handleChangePage = (e, newPage) => {
+        setPage(newPage);
+    }
 
     return (
         <>
@@ -33,7 +49,13 @@ export default () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {products.map(product => (
+                    {isLoading ? 
+                    <TableRow>
+                        <TableCell colSpan="3">
+                            <CircularProgress class="loader"/>
+                            </TableCell>
+                    </TableRow> : 
+                    productsPage.content.map(product => (
                         <TableRow key={product.title}>
                             <TableCell>{product.title}</TableCell>
                             <TableCell>{product.price}</TableCell>
@@ -43,6 +65,14 @@ export default () => {
                         </TableRow>
                     ))}
                 </TableBody>
+                <TablePagination
+                    rowsPerPageOptions={[25, 50, 100]}
+                    rowsPerPage={rowsPerPage}
+                    count={productsPage.totalElements}
+                    page={page}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                    onChangePage={handleChangePage}
+                />
             </Table>
         </TableContainer>
         <Button variant="contained" color="primary">Kurti produkta</Button>
