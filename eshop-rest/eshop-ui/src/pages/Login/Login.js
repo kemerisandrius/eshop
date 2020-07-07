@@ -4,7 +4,7 @@ import FormikState from "../../components/FormikState/FormikState";
 import {setCredentials} from "../../api";
 import {UserContext} from "../../App";
 import userApi from "../../api/userApi";
-import { useHistory } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 import { Button } from '@material-ui/core'
 import { TextField } from 'formik-material-ui'
 
@@ -16,6 +16,9 @@ const initialValues = {
 export default () => {
     const {login} = useContext(UserContext)
     const history = useHistory();
+    const location = useLocation()
+
+    const { from } = location.state || { from: { pathname: '/' } }
 
     const onSubmit = values => {
         setCredentials(values)
@@ -23,7 +26,7 @@ export default () => {
         userApi.getUser()
             .then(({data}) => {
                 login(data)
-                history.push("/")
+                history.replace(from)
             })
     }
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import productApi from '../../api/productsApi'
 import { NavLink } from 'react-router-dom'
 import {
@@ -15,10 +15,12 @@ import {
 } from '@material-ui/core'
 
 import './styles.css';
+import {UserContext} from "../../App";
+import Secured from "../../components/Secured/Secured";
 
 export default () => {
 
-    const [productsPage, setProductsPage] = useState({ content: [] });
+    const [productsPage, setProductsPage] = useState({ content: [],});
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(25);
     const [isLoading, setIsLoading] = useState(true);
@@ -49,12 +51,12 @@ export default () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {isLoading ? 
+                    {isLoading ?
                     <TableRow>
                         <TableCell colSpan="3">
                             <CircularProgress class="loader"/>
                             </TableCell>
-                    </TableRow> : 
+                    </TableRow> :
                     productsPage.content.map(product => (
                         <TableRow key={product.title}>
                             <TableCell>{product.title}</TableCell>
@@ -75,7 +77,9 @@ export default () => {
                 />
             </Table>
         </TableContainer>
-        <Button variant="contained" color="primary">Kurti produkta</Button>
+            <Secured>
+                <Button variant="contained" color="primary" href="/products/product">Kurti produkta</Button>
+            </Secured>
        </>
     )
 }

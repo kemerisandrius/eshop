@@ -4,6 +4,8 @@ import ProductList from "../../pages/ProductList/ProductList";
 import ProductForm from "../../pages/ProductForm/ProductForm";
 import ProductPage from "../../pages/ProductPage/ProductPage";
 import Login from "../../pages/Login/Login";
+import Secured from "../Secured/Secured";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export default () => (
     <Switch>
@@ -13,9 +15,9 @@ export default () => (
             <Login/>
         </Route>
 
-        <Route exact path="/products/product">
+        <PrivateRoute exact path="/products/product" role="ADMIN">
             <ProductForm />
-        </Route>
+        </PrivateRoute>
 
         <Route path="/products/:id">
             <ProductPage/>
@@ -24,12 +26,15 @@ export default () => (
         <Route path="/products">
             <ProductList />
         </Route>
+
         <Route path="/orders">
             <h1>Orders</h1>
         </Route>
+
         <Route path="/cart">
             <h1>My Cart</h1>
         </Route>
+
         <Route>
             <h1>Puslapis nerastas!</h1>
         </Route>
