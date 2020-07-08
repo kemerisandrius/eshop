@@ -6,7 +6,8 @@ import '../../validation';
 import * as Yup from 'yup';
 import ErrorMessageTranslated from "../../components/ErrorMessageTranslated/ErrorMessageTranslated";
 import { TextField } from 'formik-material-ui';
-import { Button, Input } from '@material-ui/core'; 
+import { Button, Input } from '@material-ui/core';
+import FormikState from "../../components/FormikState/FormikState";
 
 const initialState = {
     title: '',

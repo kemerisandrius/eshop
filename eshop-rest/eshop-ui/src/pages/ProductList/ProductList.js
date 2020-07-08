@@ -17,6 +17,7 @@ import {
 import './styles.css';
 import {UserContext} from "../../App";
 import Secured from "../../components/Secured/Secured";
+import ProductFormDialog from "../../components/ProductFormDialog";
 
 export default () => {
 
@@ -24,6 +25,7 @@ export default () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(25);
     const [isLoading, setIsLoading] = useState(true);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         productApi.fetchProducts(page, rowsPerPage)
@@ -78,8 +80,10 @@ export default () => {
             </Table>
         </TableContainer>
             <Secured>
-                <Button variant="contained" color="primary" href="/products/product">Kurti produkta</Button>
+                {/*<Button variant="contained" color="primary" href="/products/product">Kurti produkta</Button>*/}
+                <Button variant="contained" color="primary" onClick={() => setOpen(true)}>Kurti produkta</Button>
             </Secured>
+            <ProductFormDialog open={open} handleClose={() => setOpen(false)}/>
        </>
     )
 }
