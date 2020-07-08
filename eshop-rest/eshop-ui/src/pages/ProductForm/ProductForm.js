@@ -45,7 +45,7 @@ export default () => {
             }}
         >
             {(props) => (
-                <Form>
+                <Form id="product-form">
                     <div>
                         <Field label="Title" name="title" type="text" component={TextField}/>
                         <ErrorMessageTranslated className="error" name="title"/>
@@ -61,9 +61,6 @@ export default () => {
                     <div>
                         <Input type="file" label="Files" onChange={handleFileChange} />
                         {/* <Field name="files" type="file" onChange={handleFileChange}/> */}
-                    </div>
-                    <div>
-                        <Button variant="contained" color="primary" type="submit"> Create </Button>
                     </div>
                 </Form>
             )

@@ -15,6 +15,10 @@ export default ({open, handleClose}) => {
             <DialogContent>
                 <ProductForm/>
             </DialogContent>
+            <DialogActions>
+                <Button variant="contained" color="secondary" onClick={handleClose}>Cancel</Button>
+                <Button variant="contained" color="primary" form="product-form" type="submit">Create</Button>
+            </DialogActions>
         </Dialog>
     )
 }
